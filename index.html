@@ -71,10 +71,11 @@
         position: fixed;
         width: 40px;
         height: 40px;
-        border: 1.5px solid rgba(232, 255, 71, 0.4);
+        border: 2.5px solid rgba(232, 255, 71, 0.85);
         border-radius: 50%;
         pointer-events: none;
         z-index: 9998;
+        box-shadow: 0 0 14px rgba(232, 255, 71, 0.35);
         transform: translate(-50%, -50%);
         transition:
           transform 0.15s ease,
@@ -743,14 +744,14 @@
       }
 
       @media (hover: hover) and (pointer: fine) {
-        body {
+        body.custom-cursor-enabled {
           cursor: none;
         }
-        .form-row button {
+        body.custom-cursor-enabled .form-row button {
           cursor: none;
         }
-        #cursor,
-        #cursor-ring {
+        body.custom-cursor-enabled #cursor,
+        body.custom-cursor-enabled #cursor-ring {
           display: block;
         }
       }
@@ -998,6 +999,69 @@
       <div class="scroll-line"></div>
       Scroll
     </div>
+
+    <script>
+      (() => {
+        const supportsFinePointer = window.matchMedia(
+          "(hover: hover) and (pointer: fine)"
+        ).matches;
+        const prefersReducedMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        if (!supportsFinePointer || prefersReducedMotion) return;
+
+        const body = document.body;
+        const cursor = document.getElementById("cursor");
+        const ring = document.getElementById("cursor-ring");
+
+        if (!body || !cursor || !ring) return;
+
+        body.classList.add("custom-cursor-enabled");
+
+        let mx = -100;
+        let my = -100;
+        let rx = -100;
+        let ry = -100;
+        const ringFollowSpeed = 0.08;
+
+        document.addEventListener("mousemove", (event) => {
+          mx = event.clientX;
+          my = event.clientY;
+          cursor.style.left = `${mx}px`;
+          cursor.style.top = `${my}px`;
+          cursor.style.opacity = "1";
+          ring.style.opacity = "1";
+        });
+
+        const animateRing = () => {
+          rx += (mx - rx) * ringFollowSpeed;
+          ry += (my - ry) * ringFollowSpeed;
+          ring.style.left = `${rx}px`;
+          ring.style.top = `${ry}px`;
+          window.requestAnimationFrame(animateRing);
+        };
+        animateRing();
+
+        const hoverTargets = document.querySelectorAll(
+          "button, a, .feature-pill, .flow-step, input"
+        );
+        hoverTargets.forEach((element) => {
+          element.addEventListener("mouseenter", () => {
+            cursor.style.width = "20px";
+            cursor.style.height = "20px";
+            ring.style.width = "60px";
+            ring.style.height = "60px";
+          });
+          element.addEventListener("mouseleave", () => {
+            cursor.style.width = "12px";
+            cursor.style.height = "12px";
+            ring.style.width = "40px";
+            ring.style.height = "40px";
+          });
+        });
+      })();
+    </script>
 
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
