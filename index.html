@@ -1,0 +1,1097 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Join Barrtar's waiting list and get matched with verified people nearby for online and offline tasks."
+    />
+    <meta name="theme-color" content="#0a0a0b" />
+    <title>Barrtar &mdash; The Future of Work</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #0a0a0b;
+        --surface: #111114;
+        --surface2: #18181d;
+        --accent: #e8ff47;
+        --accent2: #47d9ff;
+        --text: #f0f0ee;
+        --muted: #6b6b7a;
+        --border: rgba(255, 255, 255, 0.07);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* Custom cursor */
+      #cursor {
+        display: none;
+        position: fixed;
+        width: 12px;
+        height: 12px;
+        background: var(--accent);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition:
+          transform 0.1s ease,
+          width 0.3s ease,
+          height 0.3s ease,
+          background 0.3s ease;
+        mix-blend-mode: difference;
+      }
+
+      #cursor-ring {
+        display: none;
+        position: fixed;
+        width: 40px;
+        height: 40px;
+        border: 1.5px solid rgba(232, 255, 71, 0.4);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition:
+          transform 0.15s ease,
+          width 0.3s ease,
+          height 0.3s ease,
+          opacity 0.3s ease;
+      }
+
+      body:hover #cursor {
+        opacity: 1;
+      }
+
+      /* Noise texture overlay */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.6;
+      }
+
+      /* Ambient glow */
+      .glow-orb {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(120px);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .glow-orb-1 {
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(
+          circle,
+          rgba(232, 255, 71, 0.06) 0%,
+          transparent 70%
+        );
+        top: -200px;
+        left: -100px;
+        animation: drift1 20s ease-in-out infinite;
+      }
+      .glow-orb-2 {
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+          circle,
+          rgba(71, 217, 255, 0.05) 0%,
+          transparent 70%
+        );
+        bottom: 0;
+        right: -100px;
+        animation: drift2 25s ease-in-out infinite;
+      }
+      @keyframes drift1 {
+        0%,
+        100% {
+          transform: translate(0, 0);
+        }
+        50% {
+          transform: translate(80px, 60px);
+        }
+      }
+      @keyframes drift2 {
+        0%,
+        100% {
+          transform: translate(0, 0);
+        }
+        50% {
+          transform: translate(-60px, -80px);
+        }
+      }
+
+      /* Layout */
+      .page {
+        position: relative;
+        z-index: 2;
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px;
+        align-items: center;
+        gap: 60px;
+      }
+
+      /* LEFT COLUMN */
+      .left {
+        padding: 80px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        animation: fadeSlideLeft 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+      @keyframes fadeSlideLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* Logo */
+      .logo-wrap {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .logo-img {
+        height: 36px;
+        width: auto;
+        filter: brightness(10) saturate(0);
+        opacity: 0.9;
+      }
+      .logo-badge {
+        font-family: "Syne", sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        background: rgba(232, 255, 71, 0.1);
+        border: 1px solid rgba(232, 255, 71, 0.25);
+        padding: 4px 10px;
+        border-radius: 100px;
+      }
+
+      /* Eyebrow */
+      .eyebrow {
+        font-family: "Syne", sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .eyebrow::before {
+        content: "";
+        width: 28px;
+        height: 1px;
+        background: var(--accent);
+      }
+
+      /* Headline */
+      .headline {
+        font-family: "Syne", sans-serif;
+        font-size: clamp(38px, 4vw, 58px);
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        color: var(--text);
+      }
+      .headline .highlight {
+        color: transparent;
+        -webkit-text-stroke: 1.5px var(--accent);
+        position: relative;
+      }
+      .headline .highlight-fill {
+        color: var(--accent);
+      }
+
+      /* Body */
+      .body-text {
+        font-size: 16px;
+        line-height: 1.75;
+        color: #9494a8;
+        max-width: 480px;
+        font-weight: 300;
+      }
+
+      /* Feature pills */
+      .features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .feature-pill {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 100px;
+        padding: 8px 16px;
+        font-size: 13px;
+        font-weight: 400;
+        color: #b0b0c0;
+        transition: all 0.25s ease;
+        animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      }
+      .feature-pill:hover {
+        border-color: rgba(232, 255, 71, 0.3);
+        color: var(--accent);
+        background: rgba(232, 255, 71, 0.05);
+        transform: translateY(-2px);
+      }
+      .feature-pill .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+      }
+      .feature-pill:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .feature-pill:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .feature-pill:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .feature-pill:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .feature-pill:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+      @keyframes popIn {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Flow steps */
+      .flow {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .flow-step {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--border);
+        transition: all 0.2s ease;
+        cursor: default;
+      }
+      .flow-step:first-child {
+        padding-top: 0;
+      }
+      .flow-step:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .flow-step:hover {
+        padding-left: 6px;
+      }
+      .flow-step:hover .step-num {
+        background: var(--accent);
+        color: var(--bg);
+      }
+      .step-num {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Syne", sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--muted);
+        flex-shrink: 0;
+        margin-top: 2px;
+        transition: all 0.3s ease;
+      }
+      .step-content h4 {
+        font-family: "Syne", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 4px;
+      }
+      .step-content p {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      /* Waitlist form */
+      .waitlist-section {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .waitlist-label {
+        font-family: "Syne", sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .form-row {
+        display: flex;
+        gap: 0;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        background: var(--surface2);
+        transition:
+          border-color 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+      .form-row:focus-within {
+        border-color: rgba(232, 255, 71, 0.5);
+        box-shadow: 0 0 0 3px rgba(232, 255, 71, 0.08);
+      }
+      .form-row.is-error {
+        border-color: rgba(255, 120, 120, 0.7);
+        box-shadow: 0 0 0 3px rgba(255, 120, 120, 0.12);
+      }
+      .form-row.is-success {
+        border-color: rgba(122, 255, 170, 0.6);
+        box-shadow: 0 0 0 3px rgba(122, 255, 170, 0.1);
+      }
+      .form-row.is-loading {
+        border-color: rgba(71, 217, 255, 0.45);
+        box-shadow: 0 0 0 3px rgba(71, 217, 255, 0.08);
+      }
+      .form-row input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        padding: 14px 20px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        color: var(--text);
+        font-weight: 400;
+      }
+      .form-row input::placeholder {
+        color: var(--muted);
+      }
+      .form-row input[aria-invalid="true"] {
+        color: #ffd7d7;
+      }
+      .form-row button {
+        background: var(--accent);
+        color: var(--bg);
+        border: none;
+        padding: 14px 24px;
+        font-family: "Syne", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        transition: all 0.25s ease;
+        white-space: nowrap;
+        min-width: 160px;
+      }
+      .form-row button:hover {
+        background: #f5ff7a;
+        padding-right: 28px;
+      }
+      .form-row button.is-loading {
+        background: #d8e23b;
+        color: #222;
+      }
+      .form-row button.is-success {
+        background: rgba(232, 255, 71, 0.15);
+        color: var(--accent);
+      }
+      .form-row button:disabled {
+        cursor: default;
+        padding-right: 24px;
+      }
+      .waitlist-status {
+        min-height: 16px;
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .waitlist-status.is-loading {
+        color: #8ecbe0;
+      }
+      .waitlist-status.is-error {
+        color: #ff9a9a;
+      }
+      .waitlist-status.is-success {
+        color: #98e4a8;
+      }
+      .social-proof {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .avatars {
+        display: flex;
+      }
+      .avatar {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        border: 2px solid var(--bg);
+        background: var(--surface2);
+        margin-left: -6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--muted);
+      }
+      .avatar:first-child {
+        margin-left: 0;
+      }
+      .avatar-a {
+        background: linear-gradient(135deg, #e8ff47, #b8cc00);
+        color: #000;
+      }
+      .avatar-b {
+        background: linear-gradient(135deg, #47d9ff, #0099cc);
+        color: #000;
+      }
+      .avatar-c {
+        background: linear-gradient(135deg, #ff6b6b, #cc0000);
+        color: #fff;
+      }
+
+      /* RIGHT COLUMN - Phone mockup */
+      .right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 0;
+        animation: fadeSlideRight 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+      }
+      @keyframes fadeSlideRight {
+        from {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .phone-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Glow behind phone */
+      .phone-glow {
+        position: absolute;
+        width: 360px;
+        height: 500px;
+        background: radial-gradient(
+          ellipse,
+          rgba(232, 255, 71, 0.12) 0%,
+          rgba(71, 217, 255, 0.06) 40%,
+          transparent 70%
+        );
+        filter: blur(40px);
+        z-index: 0;
+        animation: pulseGlow 4s ease-in-out infinite;
+      }
+      @keyframes pulseGlow {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.7;
+          transform: scale(1.05);
+        }
+      }
+
+      .phone-wrapper {
+        position: relative;
+        z-index: 1;
+        filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.8))
+          drop-shadow(0 0 40px rgba(232, 255, 71, 0.08));
+        animation: float 6s ease-in-out infinite;
+        transform-origin: center bottom;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-1deg);
+        }
+        50% {
+          transform: translateY(-16px) rotate(1deg);
+        }
+      }
+
+      .phone-img {
+        width: 300px;
+        height: auto;
+        display: block;
+        border-radius: 40px;
+      }
+
+      /* Floating tags */
+      .float-tag {
+        position: absolute;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text);
+        white-space: nowrap;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        z-index: 2;
+        animation: tagFloat 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      }
+      .float-tag .icon {
+        font-size: 16px;
+      }
+      .float-tag .tag-val {
+        color: var(--accent);
+        font-weight: 700;
+        font-family: "Syne", sans-serif;
+        font-size: 14px;
+      }
+      .tag-label {
+        font-size: 10px;
+        color: var(--muted);
+        margin-bottom: 2px;
+      }
+      .ft-1 {
+        top: 15%;
+        left: -60px;
+        animation-delay: 0.8s;
+      }
+      .ft-2 {
+        top: 42%;
+        right: -55px;
+        animation-delay: 1s;
+      }
+      .ft-3 {
+        bottom: 22%;
+        left: -70px;
+        animation-delay: 1.2s;
+      }
+      @keyframes tagFloat {
+        from {
+          opacity: 0;
+          transform: scale(0.7) translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      /* Footer strip */
+      .footer-strip {
+        position: relative;
+        z-index: 2;
+        border-top: 1px solid var(--border);
+        padding: 20px 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .footer-right {
+        display: flex;
+        gap: 24px;
+      }
+      .footer-link {
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .footer-link:hover {
+        color: var(--text);
+      }
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      /* Scroll hint */
+      .scroll-hint {
+        position: fixed;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--muted);
+        opacity: 0;
+        animation: fadeIn 1s 2s both;
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+      .scroll-line {
+        width: 1px;
+        height: 40px;
+        background: linear-gradient(to bottom, var(--muted), transparent);
+        animation: scrollPulse 2s ease-in-out infinite;
+      }
+      @keyframes scrollPulse {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: scaleY(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scaleY(0.5);
+          transform-origin: top;
+        }
+      }
+
+      /* Verified badge */
+      .verified-strip {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        background: rgba(71, 217, 255, 0.06);
+        border: 1px solid rgba(71, 217, 255, 0.15);
+        border-radius: 10px;
+        font-size: 12.5px;
+        color: #7dd8f0;
+        font-weight: 400;
+        max-width: fit-content;
+      }
+      .verified-strip svg {
+        flex-shrink: 0;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        body {
+          cursor: none;
+        }
+        .form-row button {
+          cursor: none;
+        }
+        #cursor,
+        #cursor-ring {
+          display: block;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+        #cursor,
+        #cursor-ring,
+        .scroll-hint {
+          display: none !important;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .page {
+          grid-template-columns: 1fr;
+          padding: 0 24px;
+          gap: 0;
+        }
+        .right {
+          padding: 20px 0 60px;
+        }
+        .left {
+          padding: 60px 0 20px;
+        }
+        .ft-1 {
+          left: -10px;
+        }
+        .ft-2 {
+          right: -10px;
+        }
+        .ft-3 {
+          left: -10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cursor" aria-hidden="true"></div>
+    <div id="cursor-ring" aria-hidden="true"></div>
+    <div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+    <div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
+    <main class="page">
+      <!-- LEFT COLUMN -->
+      <div class="left">
+        <div class="logo-wrap">
+          <img
+            src="images/LogoImg.png"
+            alt="Barrtar logo"
+            class="logo-img"
+            loading="eager"
+            decoding="async"
+          />
+          <span class="logo-badge">Early Access</span>
+        </div>
+
+        <div>
+          <div class="eyebrow">The future of work is here</div>
+        </div>
+
+        <h1 class="headline">
+          Find anyone<br />
+          for <span class="highlight-fill">anything.</span><br />
+          <span class="highlight">Right now.</span>
+        </h1>
+
+        <p class="body-text">
+          Post a task, get matched to a verified person nearby. Move a sofa.
+          Walk your dog. Sell your old books. Get math tutoring. No platform
+          fees. No friction. Just people helping people — the way it should be.
+        </p>
+
+        <div class="features">
+          <div class="feature-pill">
+            <span class="dot"></span> Verified Doers Only
+          </div>
+          <div class="feature-pill">
+            <span class="dot"></span> Zero Platform Fees
+          </div>
+          <div class="feature-pill">
+            <span class="dot"></span> Matchmaking Nearby
+          </div>
+          <div class="feature-pill">
+            <span class="dot"></span> Skilled & Unskilled
+          </div>
+          <div class="feature-pill">
+            <span class="dot"></span> Online & Offline Tasks
+          </div>
+        </div>
+
+        <div class="flow">
+          <div class="flow-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>Post your task, set your price</h4>
+              <p>
+                Describe what you need and name your budget. You stay in
+                control.
+              </p>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>Matchmaking finds the right person</h4>
+              <p>
+                Nearby verified doers get matched by skill, location &
+                availability.
+              </p>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>No match? It hits the Bucket List</h4>
+              <p>
+                Unmatched tasks go public — anyone from the community can pick
+                it up within 3 hours.
+              </p>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h4>Get it done, pay directly</h4>
+              <p>
+                Work starts when you say so. Pay your doer straight — no
+                middleman, no fees.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="verified-strip">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8 1L10.16 5.26L15 5.82L11.5 9.14L12.36 14L8 11.77L3.64 14L4.5 9.14L1 5.82L5.84 5.26L8 1Z"
+              fill="rgba(71,217,255,0.6)"
+              stroke="#47d9ff"
+              stroke-width="1"
+              stroke-linejoin="round"
+            />
+          </svg>
+          Every doer is government ID verified before they can accept a task.
+        </div>
+
+        <form class="waitlist-section" id="waitlist-form" novalidate>
+          <label class="waitlist-label" for="email-input">
+            Join the waiting list
+          </label>
+          <div class="form-row">
+            <input
+              type="email"
+              name="email"
+              id="email-input"
+              placeholder="your@email.com"
+              autocomplete="email"
+              inputmode="email"
+              maxlength="254"
+              spellcheck="false"
+              required
+              aria-describedby="waitlist-status"
+            />
+            <button type="submit">Get Early Access &rarr;</button>
+          </div>
+          <div
+            class="waitlist-status"
+            id="waitlist-status"
+            aria-live="polite"
+          ></div>
+          <div class="social-proof">
+            <div class="avatars">
+              <div class="avatar avatar-a">R</div>
+              <div class="avatar avatar-b">P</div>
+              <div class="avatar avatar-c">S</div>
+            </div>
+            <span>Join 1,200+ people already on the list — free, always.</span>
+          </div>
+        </form>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="right">
+        <div class="phone-container">
+          <div class="phone-glow" aria-hidden="true"></div>
+
+          <div class="float-tag ft-1" aria-hidden="true">
+            <span class="icon">&#9889;</span>
+            <div>
+              <div class="tag-label">Matchmaking</div>
+              <span class="tag-val">Nearby</span>
+            </div>
+          </div>
+
+          <div class="float-tag ft-2" aria-hidden="true">
+            <span class="icon">&#128274;</span>
+            <div>
+              <div class="tag-label">Doer</div>
+              <span class="tag-val">Verified &#10003;</span>
+            </div>
+          </div>
+
+          <div class="float-tag ft-3" aria-hidden="true">
+            <span class="icon">&#128184;</span>
+            <div>
+              <div class="tag-label">Platform fee</div>
+              <span class="tag-val">&#8377;0</span>
+            </div>
+          </div>
+
+          <div class="phone-wrapper">
+            <img
+              src="images/mobile.png"
+              alt="Barrtar app preview"
+              class="phone-img"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer-strip">
+      <span>&copy; 2026 Barrtar. All rights reserved.</span>
+    </footer>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+      import {
+        getAnalytics,
+        isSupported as isAnalyticsSupported,
+      } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-analytics.js";
+      import {
+        doc,
+        setDoc,
+        getFirestore,
+        serverTimestamp,
+      } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCFnqJih-msdUzytYHCRwrwOxE34SaSuSk",
+        authDomain: "barrtar-website.firebaseapp.com",
+        projectId: "barrtar-website",
+        storageBucket: "barrtar-website.firebasestorage.app",
+        messagingSenderId: "929396281674",
+        appId: "1:929396281674:web:7f7d7a64139bddc8cfb1b3",
+        measurementId: "G-0EJE64YRQG",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      isAnalyticsSupported()
+        .then((supported) => {
+          if (supported) getAnalytics(app);
+        })
+        .catch(() => {});
+
+      const waitlistForm = document.getElementById("waitlist-form");
+      const emailInput = document.getElementById("email-input");
+      const waitlistStatus = document.getElementById("waitlist-status");
+
+      const normalizeEmail = (v) => v.trim().toLowerCase();
+
+      const validateEmail = (value) => {
+        const email = normalizeEmail(value);
+        const basicPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
+        if (!email)
+          return { valid: false, email, message: "Enter your email." };
+        if (!basicPattern.test(email))
+          return { valid: false, email, message: "Enter valid email." };
+
+        return { valid: true, email, message: "" };
+      };
+
+      if (waitlistForm && emailInput && waitlistStatus) {
+        const submitButton = waitlistForm.querySelector("button");
+        const defaultButtonText = submitButton.textContent;
+
+        waitlistForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          const validation = validateEmail(emailInput.value);
+          emailInput.value = validation.email;
+
+          if (!validation.valid) {
+            waitlistStatus.textContent = validation.message;
+            return;
+          }
+
+          submitButton.disabled = true;
+          submitButton.textContent = "Submitting...";
+
+          try {
+            await setDoc(
+              doc(db, "waitlist_emails", validation.email),
+              {
+                email: validation.email,
+                createdAt: serverTimestamp(),
+                createdAtClient: new Date().toISOString(),
+                source: "website",
+              },
+              { merge: true },
+            );
+
+            submitButton.textContent = "You're on the list!";
+            emailInput.value = "";
+            waitlistStatus.textContent =
+              "Thanks! Your early-access request is in.";
+          } catch (error) {
+            console.error("Failed to save waitlist email:", error);
+            submitButton.disabled = false;
+            submitButton.textContent = defaultButtonText;
+            waitlistStatus.textContent =
+              "Could not submit right now. Try again.";
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
