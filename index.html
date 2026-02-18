@@ -15,6 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
       rel="stylesheet"
     />
+
     <style>
       *,
       *::before,
@@ -27,109 +28,72 @@
       :root {
         --bg: #0a0a0b;
         --surface: #111114;
-        --surface2: #18181d;
+        --surface2: #17171b;
         --accent: #e8ff47;
         --accent2: #47d9ff;
         --text: #f0f0ee;
-        --muted: #6b6b7a;
-        --border: rgba(255, 255, 255, 0.07);
+        --muted: #5a5a68;
+        --muted2: #8888a0;
+        --border: rgba(255, 255, 255, 0.06);
+        --border-strong: rgba(255, 255, 255, 0.11);
       }
 
-      html {
-        scroll-behavior: smooth;
+      /* ── DESKTOP: lock to viewport, no scroll ── */
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
       }
 
       body {
         background: var(--bg);
         color: var(--text);
         font-family: "DM Sans", sans-serif;
-        min-height: 100vh;
         overflow-x: hidden;
       }
 
-      /* Custom cursor */
-      #cursor {
-        display: none;
-        position: fixed;
-        width: 12px;
-        height: 12px;
-        background: var(--accent);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 9999;
-        transform: translate(-50%, -50%);
-        transition:
-          transform 0.1s ease,
-          width 0.3s ease,
-          height 0.3s ease,
-          background 0.3s ease;
-        mix-blend-mode: difference;
-      }
-
-      #cursor-ring {
-        display: none;
-        position: fixed;
-        width: 40px;
-        height: 40px;
-        border: 2.5px solid rgba(232, 255, 71, 0.85);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 9998;
-        box-shadow: 0 0 14px rgba(232, 255, 71, 0.35);
-        transform: translate(-50%, -50%);
-        transition:
-          transform 0.15s ease,
-          width 0.3s ease,
-          height 0.3s ease,
-          opacity 0.3s ease;
-      }
-
-      body:hover #cursor {
-        opacity: 1;
-      }
-
-      /* Noise texture overlay */
+      /* Noise texture */
       body::before {
         content: "";
         position: fixed;
         inset: 0;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
         pointer-events: none;
         z-index: 1;
-        opacity: 0.6;
+        opacity: 0.5;
       }
 
-      /* Ambient glow */
+      /* Ambient glows */
       .glow-orb {
         position: fixed;
         border-radius: 50%;
-        filter: blur(120px);
+        filter: blur(100px);
         pointer-events: none;
         z-index: 0;
       }
       .glow-orb-1 {
-        width: 600px;
-        height: 600px;
+        width: 550px;
+        height: 550px;
         background: radial-gradient(
           circle,
-          rgba(232, 255, 71, 0.06) 0%,
+          rgba(232, 255, 71, 0.07) 0%,
           transparent 70%
         );
-        top: -200px;
-        left: -100px;
-        animation: drift1 20s ease-in-out infinite;
+        top: -180px;
+        left: -80px;
+        animation: drift1 22s ease-in-out infinite;
       }
       .glow-orb-2 {
-        width: 500px;
-        height: 500px;
+        width: 450px;
+        height: 450px;
         background: radial-gradient(
           circle,
-          rgba(71, 217, 255, 0.05) 0%,
+          rgba(71, 217, 255, 0.055) 0%,
           transparent 70%
         );
-        bottom: 0;
-        right: -100px;
-        animation: drift2 25s ease-in-out infinite;
+        bottom: -80px;
+        right: -60px;
+        animation: drift2 28s ease-in-out infinite;
       }
       @keyframes drift1 {
         0%,
@@ -137,7 +101,7 @@
           transform: translate(0, 0);
         }
         50% {
-          transform: translate(80px, 60px);
+          transform: translate(70px, 50px);
         }
       }
       @keyframes drift2 {
@@ -146,36 +110,39 @@
           transform: translate(0, 0);
         }
         50% {
-          transform: translate(-60px, -80px);
+          transform: translate(-50px, -70px);
         }
       }
 
-      /* Layout */
-      .page {
+      /* ── SHELL: full viewport height, two columns ── */
+      .shell {
         position: relative;
         z-index: 2;
-        min-height: 100vh;
+        height: 100vh;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        max-width: 1400px;
+        grid-template-rows: 1fr auto;
+        max-width: 1360px;
         margin: 0 auto;
-        padding: 0 40px;
-        align-items: center;
-        gap: 60px;
+        padding: 0 48px;
+        column-gap: 48px;
       }
 
-      /* LEFT COLUMN */
+      /* ── LEFT COLUMN ── */
       .left {
-        padding: 80px 0;
+        grid-column: 1;
+        grid-row: 1;
         display: flex;
         flex-direction: column;
-        gap: 40px;
-        animation: fadeSlideLeft 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+        justify-content: center;
+        gap: 20px;
+        padding: 36px 0;
+        animation: slideLeft 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
       }
-      @keyframes fadeSlideLeft {
+      @keyframes slideLeft {
         from {
           opacity: 0;
-          transform: translateX(-30px);
+          transform: translateX(-24px);
         }
         to {
           opacity: 1;
@@ -183,129 +150,129 @@
         }
       }
 
-      /* Logo */
+      /* Logo row */
       .logo-wrap {
         display: flex;
         align-items: center;
-        gap: 14px;
+        gap: 12px;
       }
       .logo-img {
-        height: 36px;
+        height: 28px;
         width: auto;
         filter: brightness(10) saturate(0);
-        opacity: 0.9;
+        opacity: 0.88;
       }
       .logo-badge {
         font-family: "Syne", sans-serif;
-        font-size: 10px;
+        font-size: 9px;
         font-weight: 700;
-        letter-spacing: 0.15em;
+        letter-spacing: 0.18em;
         text-transform: uppercase;
         color: var(--accent);
-        background: rgba(232, 255, 71, 0.1);
-        border: 1px solid rgba(232, 255, 71, 0.25);
-        padding: 4px 10px;
+        background: rgba(232, 255, 71, 0.09);
+        border: 1px solid rgba(232, 255, 71, 0.22);
+        padding: 3px 9px;
         border-radius: 100px;
       }
 
       /* Eyebrow */
       .eyebrow {
         font-family: "Syne", sans-serif;
-        font-size: 11px;
+        font-size: 10px;
         font-weight: 600;
-        letter-spacing: 0.2em;
+        letter-spacing: 0.22em;
         text-transform: uppercase;
         color: var(--accent);
         display: flex;
         align-items: center;
         gap: 10px;
+        opacity: 0.85;
       }
       .eyebrow::before {
         content: "";
-        width: 28px;
+        width: 24px;
         height: 1px;
         background: var(--accent);
+        flex-shrink: 0;
       }
 
       /* Headline */
       .headline {
         font-family: "Syne", sans-serif;
-        font-size: clamp(38px, 4vw, 58px);
+        font-size: clamp(32px, 3vw, 50px);
         font-weight: 800;
-        line-height: 1.05;
-        letter-spacing: -0.02em;
-        color: var(--text);
+        line-height: 1.04;
+        letter-spacing: -0.025em;
       }
-      .headline .highlight {
-        color: transparent;
-        -webkit-text-stroke: 1.5px var(--accent);
-        position: relative;
-      }
-      .headline .highlight-fill {
+      .hl-fill {
         color: var(--accent);
       }
+      .hl-outline {
+        color: transparent;
+        -webkit-text-stroke: 1.5px var(--accent);
+      }
 
-      /* Body */
+      /* Body copy */
       .body-text {
-        font-size: 16px;
-        line-height: 1.75;
-        color: #9494a8;
-        max-width: 480px;
+        font-size: 14px;
+        line-height: 1.7;
+        color: var(--muted2);
         font-weight: 300;
+        max-width: 430px;
       }
 
       /* Feature pills */
       .features {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 7px;
       }
       .feature-pill {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 7px;
         background: var(--surface2);
-        border: 1px solid var(--border);
+        border: 1px solid var(--border-strong);
         border-radius: 100px;
-        padding: 8px 16px;
-        font-size: 13px;
-        font-weight: 400;
-        color: #b0b0c0;
-        transition: all 0.25s ease;
-        animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        padding: 5px 12px;
+        font-size: 11.5px;
+        color: var(--muted2);
+        transition: all 0.22s ease;
+        animation: popIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
       }
       .feature-pill:hover {
         border-color: rgba(232, 255, 71, 0.3);
         color: var(--accent);
         background: rgba(232, 255, 71, 0.05);
-        transform: translateY(-2px);
+        transform: translateY(-1px);
       }
-      .feature-pill .dot {
-        width: 6px;
-        height: 6px;
+      .pill-dot {
+        width: 5px;
+        height: 5px;
         border-radius: 50%;
         background: var(--accent);
         flex-shrink: 0;
+        opacity: 0.7;
       }
       .feature-pill:nth-child(1) {
-        animation-delay: 0.1s;
+        animation-delay: 0.08s;
       }
       .feature-pill:nth-child(2) {
-        animation-delay: 0.2s;
+        animation-delay: 0.16s;
       }
       .feature-pill:nth-child(3) {
-        animation-delay: 0.3s;
+        animation-delay: 0.24s;
       }
       .feature-pill:nth-child(4) {
-        animation-delay: 0.4s;
+        animation-delay: 0.32s;
       }
       .feature-pill:nth-child(5) {
-        animation-delay: 0.5s;
+        animation-delay: 0.4s;
       }
       @keyframes popIn {
         from {
           opacity: 0;
-          transform: scale(0.8);
+          transform: scale(0.82);
         }
         to {
           opacity: 1;
@@ -313,115 +280,129 @@
         }
       }
 
-      /* Flow steps */
-      .flow {
-        display: flex;
-        flex-direction: column;
-        gap: 0;
+      /* ── Compact 2×2 step grid ── */
+      .steps {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
       }
-      .flow-step {
+      .step {
+        background: var(--bg);
+        padding: 13px 15px;
         display: flex;
-        gap: 20px;
+        gap: 10px;
         align-items: flex-start;
-        padding: 18px 0;
-        border-bottom: 1px solid var(--border);
-        transition: all 0.2s ease;
+        transition: background 0.2s ease;
         cursor: default;
       }
-      .flow-step:first-child {
-        padding-top: 0;
+      .step:hover {
+        background: var(--surface2);
       }
-      .flow-step:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
-      }
-      .flow-step:hover {
-        padding-left: 6px;
-      }
-      .flow-step:hover .step-num {
+      .step:hover .sn {
         background: var(--accent);
         color: var(--bg);
+        border-color: var(--accent);
       }
-      .step-num {
-        width: 32px;
-        height: 32px;
+      .sn {
+        width: 22px;
+        height: 22px;
         border-radius: 50%;
-        border: 1px solid var(--border);
+        border: 1px solid var(--border-strong);
         display: flex;
         align-items: center;
         justify-content: center;
         font-family: "Syne", sans-serif;
-        font-size: 12px;
+        font-size: 10px;
         font-weight: 700;
         color: var(--muted);
         flex-shrink: 0;
-        margin-top: 2px;
-        transition: all 0.3s ease;
+        margin-top: 1px;
+        transition: all 0.25s ease;
       }
-      .step-content h4 {
+      .sc h4 {
         font-family: "Syne", sans-serif;
-        font-size: 14px;
+        font-size: 11.5px;
         font-weight: 700;
         color: var(--text);
-        margin-bottom: 4px;
+        margin-bottom: 2px;
+        line-height: 1.3;
       }
-      .step-content p {
-        font-size: 13px;
-        color: var(--muted);
+      .sc p {
+        font-size: 11px;
+        color: var(--text);
         line-height: 1.5;
       }
 
-      /* Waitlist form */
+      /* Trust strip */
+      .trust-strip {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 13px;
+        background: rgba(71, 217, 255, 0.05);
+        border: 1px solid rgba(71, 217, 255, 0.13);
+        border-radius: 9px;
+        font-size: 11.5px;
+        color: #79d5ee;
+        max-width: fit-content;
+      }
+      .trust-strip svg {
+        flex-shrink: 0;
+      }
+
+      /* ── Waitlist form ── */
       .waitlist-section {
         display: flex;
         flex-direction: column;
-        gap: 14px;
+        gap: 9px;
       }
       .waitlist-label {
         font-family: "Syne", sans-serif;
-        font-size: 11px;
+        font-size: 10px;
         font-weight: 700;
-        letter-spacing: 0.15em;
+        letter-spacing: 0.16em;
         text-transform: uppercase;
         color: var(--muted);
       }
       .form-row {
         display: flex;
-        gap: 0;
-        border-radius: 12px;
+        border-radius: 11px;
         overflow: hidden;
-        border: 1px solid var(--border);
+        border: 1px solid var(--border-strong);
         background: var(--surface2);
         transition:
-          border-color 0.25s ease,
-          box-shadow 0.25s ease;
+          border-color 0.22s,
+          box-shadow 0.22s;
       }
       .form-row:focus-within {
-        border-color: rgba(232, 255, 71, 0.5);
-        box-shadow: 0 0 0 3px rgba(232, 255, 71, 0.08);
+        border-color: rgba(232, 255, 71, 0.45);
+        box-shadow: 0 0 0 3px rgba(232, 255, 71, 0.07);
       }
       .form-row.is-error {
-        border-color: rgba(255, 120, 120, 0.7);
-        box-shadow: 0 0 0 3px rgba(255, 120, 120, 0.12);
+        border-color: rgba(255, 120, 120, 0.65);
+        box-shadow: 0 0 0 3px rgba(255, 120, 120, 0.1);
       }
       .form-row.is-success {
-        border-color: rgba(122, 255, 170, 0.6);
-        box-shadow: 0 0 0 3px rgba(122, 255, 170, 0.1);
+        border-color: rgba(122, 255, 170, 0.55);
+        box-shadow: 0 0 0 3px rgba(122, 255, 170, 0.08);
       }
       .form-row.is-loading {
-        border-color: rgba(71, 217, 255, 0.45);
-        box-shadow: 0 0 0 3px rgba(71, 217, 255, 0.08);
+        border-color: rgba(71, 217, 255, 0.4);
+        box-shadow: 0 0 0 3px rgba(71, 217, 255, 0.07);
       }
       .form-row input {
         flex: 1;
         background: transparent;
         border: none;
         outline: none;
-        padding: 14px 20px;
+        padding: 12px 16px;
         font-family: "DM Sans", sans-serif;
-        font-size: 14px;
+        font-size: 13.5px;
         color: var(--text);
-        font-weight: 400;
       }
       .form-row input::placeholder {
         color: var(--muted);
@@ -433,98 +414,124 @@
         background: var(--accent);
         color: var(--bg);
         border: none;
-        padding: 14px 24px;
+        padding: 12px 20px;
         font-family: "Syne", sans-serif;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
         letter-spacing: 0.05em;
-        transition: all 0.25s ease;
+        transition: all 0.22s ease;
         white-space: nowrap;
-        min-width: 160px;
+        min-width: 148px;
       }
-      .form-row button:hover {
-        background: #f5ff7a;
-        padding-right: 28px;
+      .form-row button:hover:not(:disabled) {
+        background: #f4ff6e;
+        padding-right: 24px;
       }
       .form-row button.is-loading {
-        background: #d8e23b;
-        color: #222;
+        background: #ccd936;
+        color: #111;
       }
       .form-row button.is-success {
-        background: rgba(232, 255, 71, 0.15);
+        background: rgba(232, 255, 71, 0.12);
         color: var(--accent);
       }
       .form-row button:disabled {
         cursor: default;
-        padding-right: 24px;
+        padding-right: 20px;
       }
+
       .waitlist-status {
-        min-height: 16px;
-        font-size: 12px;
+        min-height: 14px;
+        font-size: 11.5px;
         color: var(--muted);
         font-weight: 500;
       }
       .waitlist-status.is-loading {
-        color: #8ecbe0;
+        color: #7fc8df;
       }
       .waitlist-status.is-error {
-        color: #ff9a9a;
+        color: #ff9090;
       }
       .waitlist-status.is-success {
-        color: #98e4a8;
+        color: #92e0a3;
       }
+
       .social-proof {
         display: flex;
         align-items: center;
-        gap: 12px;
-        font-size: 12px;
+        gap: 10px;
+        font-size: 11.5px;
         color: var(--muted);
       }
       .avatars {
         display: flex;
       }
       .avatar {
-        width: 26px;
-        height: 26px;
+        width: 23px;
+        height: 23px;
         border-radius: 50%;
         border: 2px solid var(--bg);
-        background: var(--surface2);
-        margin-left: -6px;
+        margin-left: -5px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 10px;
+        font-size: 9px;
         font-weight: 700;
-        color: var(--muted);
       }
       .avatar:first-child {
         margin-left: 0;
       }
-      .avatar-a {
+      .av-a {
         background: linear-gradient(135deg, #e8ff47, #b8cc00);
         color: #000;
       }
-      .avatar-b {
+      .av-b {
         background: linear-gradient(135deg, #47d9ff, #0099cc);
         color: #000;
       }
-      .avatar-c {
+      .av-c {
         background: linear-gradient(135deg, #ff6b6b, #cc0000);
         color: #fff;
       }
 
-      /* RIGHT COLUMN - Phone mockup */
+      /* ── FOOTER (sits in left col, row 2) ── */
+      .footer-strip {
+        grid-column: 1;
+        grid-row: 2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-top: 1px solid var(--border);
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .footer-links {
+        display: flex;
+        gap: 20px;
+      }
+      .footer-link {
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.18s;
+      }
+      .footer-link:hover {
+        color: var(--muted2);
+      }
+
+      /* ── RIGHT COLUMN ── */
       .right {
+        grid-column: 2;
+        grid-row: 1 / 3;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 60px 0;
-        animation: fadeSlideRight 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+        animation: slideRight 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
       }
-      @keyframes fadeSlideRight {
+      @keyframes slideRight {
         from {
           opacity: 0;
-          transform: translateX(30px);
+          transform: translateX(24px);
         }
         to {
           opacity: 1;
@@ -539,18 +546,17 @@
         justify-content: center;
       }
 
-      /* Glow behind phone */
       .phone-glow {
         position: absolute;
-        width: 360px;
-        height: 500px;
+        width: 300px;
+        height: 440px;
         background: radial-gradient(
           ellipse,
-          rgba(232, 255, 71, 0.12) 0%,
-          rgba(71, 217, 255, 0.06) 40%,
+          rgba(232, 255, 71, 0.13) 0%,
+          rgba(71, 217, 255, 0.06) 45%,
           transparent 70%
         );
-        filter: blur(40px);
+        filter: blur(36px);
         z-index: 0;
         animation: pulseGlow 4s ease-in-out infinite;
       }
@@ -561,88 +567,87 @@
           transform: scale(1);
         }
         50% {
-          opacity: 0.7;
-          transform: scale(1.05);
+          opacity: 0.65;
+          transform: scale(1.06);
         }
       }
 
       .phone-wrapper {
         position: relative;
         z-index: 1;
-        filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.8))
-          drop-shadow(0 0 40px rgba(232, 255, 71, 0.08));
+        filter: drop-shadow(0 32px 64px rgba(0, 0, 0, 0.85))
+          drop-shadow(0 0 28px rgba(232, 255, 71, 0.07));
         animation: float 6s ease-in-out infinite;
-        transform-origin: center bottom;
       }
       @keyframes float {
         0%,
         100% {
-          transform: translateY(0) rotate(-1deg);
+          transform: translateY(0) rotate(-0.8deg);
         }
         50% {
-          transform: translateY(-16px) rotate(1deg);
+          transform: translateY(-14px) rotate(0.8deg);
         }
       }
 
       .phone-img {
-        width: 300px;
-        height: auto;
+        height: clamp(460px, 70vh, 640px);
+        width: auto;
         display: block;
-        border-radius: 40px;
+        border-radius: 36px;
       }
 
-      /* Floating tags */
+      /* Float tags */
       .float-tag {
         position: absolute;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 10px 14px;
+        background: rgba(15, 15, 18, 0.94);
+        border: 1px solid var(--border-strong);
+        border-radius: 11px;
+        padding: 8px 12px;
         display: flex;
         align-items: center;
         gap: 8px;
-        font-size: 12px;
+        font-size: 11.5px;
         font-weight: 500;
         color: var(--text);
         white-space: nowrap;
-        backdrop-filter: blur(12px);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 6px 28px rgba(0, 0, 0, 0.45);
         z-index: 2;
-        animation: tagFloat 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        animation: tagPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
       }
-      .float-tag .icon {
-        font-size: 16px;
-      }
-      .float-tag .tag-val {
-        color: var(--accent);
-        font-weight: 700;
-        font-family: "Syne", sans-serif;
+      .ft-icon {
         font-size: 14px;
       }
-      .tag-label {
-        font-size: 10px;
+      .ft-label {
+        font-size: 9px;
         color: var(--muted);
-        margin-bottom: 2px;
+        margin-bottom: 1px;
+      }
+      .ft-val {
+        color: var(--accent);
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 12.5px;
       }
       .ft-1 {
-        top: 15%;
-        left: -60px;
-        animation-delay: 0.8s;
+        top: 18%;
+        left: -72px;
+        animation-delay: 0.7s;
       }
       .ft-2 {
-        top: 42%;
-        right: -55px;
-        animation-delay: 1s;
+        top: 44%;
+        right: -66px;
+        animation-delay: 0.9s;
       }
       .ft-3 {
-        bottom: 22%;
-        left: -70px;
-        animation-delay: 1.2s;
+        bottom: 20%;
+        left: -80px;
+        animation-delay: 1.1s;
       }
-      @keyframes tagFloat {
+      @keyframes tagPop {
         from {
           opacity: 0;
-          transform: scale(0.7) translateY(10px);
+          transform: scale(0.72) translateY(8px);
         }
         to {
           opacity: 1;
@@ -650,32 +655,7 @@
         }
       }
 
-      /* Footer strip */
-      .footer-strip {
-        position: relative;
-        z-index: 2;
-        border-top: 1px solid var(--border);
-        padding: 20px 40px;
-        max-width: 1400px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 12px;
-        color: var(--muted);
-      }
-      .footer-right {
-        display: flex;
-        gap: 24px;
-      }
-      .footer-link {
-        color: var(--muted);
-        text-decoration: none;
-        transition: color 0.2s;
-      }
-      .footer-link:hover {
-        color: var(--text);
-      }
+      /* ── Focus / a11y ── */
       a:focus-visible,
       button:focus-visible,
       input:focus-visible {
@@ -683,83 +663,53 @@
         outline-offset: 2px;
       }
 
-      /* Scroll hint */
-      .scroll-hint {
+      /* ── Custom cursor ── */
+      #cursor {
+        display: none;
         position: fixed;
-        bottom: 32px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 10;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
-        font-size: 10px;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: var(--muted);
-        opacity: 0;
-        animation: fadeIn 1s 2s both;
+        width: 11px;
+        height: 11px;
+        background: var(--accent);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition:
+          width 0.25s ease,
+          height 0.25s ease;
+        mix-blend-mode: difference;
       }
-      @keyframes fadeIn {
-        to {
-          opacity: 1;
-        }
-      }
-      .scroll-line {
-        width: 1px;
-        height: 40px;
-        background: linear-gradient(to bottom, var(--muted), transparent);
-        animation: scrollPulse 2s ease-in-out infinite;
-      }
-      @keyframes scrollPulse {
-        0%,
-        100% {
-          opacity: 0.3;
-          transform: scaleY(1);
-        }
-        50% {
-          opacity: 1;
-          transform: scaleY(0.5);
-          transform-origin: top;
-        }
-      }
-
-      /* Verified badge */
-      .verified-strip {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 16px;
-        background: rgba(71, 217, 255, 0.06);
-        border: 1px solid rgba(71, 217, 255, 0.15);
-        border-radius: 10px;
-        font-size: 12.5px;
-        color: #7dd8f0;
-        font-weight: 400;
-        max-width: fit-content;
-      }
-      .verified-strip svg {
-        flex-shrink: 0;
+      #cursor-ring {
+        display: none;
+        position: fixed;
+        width: 38px;
+        height: 38px;
+        border: 2px solid rgba(232, 255, 71, 0.8);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        box-shadow: 0 0 12px rgba(232, 255, 71, 0.28);
+        transform: translate(-50%, -50%);
+        transition:
+          width 0.28s ease,
+          height 0.28s ease,
+          opacity 0.28s ease;
       }
 
       @media (hover: hover) and (pointer: fine) {
-        body.custom-cursor-enabled {
+        body.cce {
           cursor: none;
         }
-        body.custom-cursor-enabled .form-row button {
+        body.cce button {
           cursor: none;
         }
-        body.custom-cursor-enabled #cursor,
-        body.custom-cursor-enabled #cursor-ring {
+        body.cce #cursor,
+        body.cce #cursor-ring {
           display: block;
         }
       }
 
       @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
-        }
         *,
         *::before,
         *::after {
@@ -768,49 +718,115 @@
           transition-duration: 0.01ms !important;
         }
         #cursor,
-        #cursor-ring,
-        .scroll-hint {
+        #cursor-ring {
           display: none !important;
         }
       }
 
-      @media (max-width: 900px) {
-        .page {
+      /* ── RESPONSIVE: tablet / mobile — re-enable scroll ── */
+      @media (max-width: 860px) {
+        html,
+        body {
+          height: auto;
+          overflow: auto;
+          overflow-x: hidden;
+        }
+
+        .shell {
           grid-template-columns: 1fr;
-          padding: 0 24px;
-          gap: 0;
+          grid-template-rows: auto auto auto;
+          height: auto;
+          min-height: 100vh;
+          padding: 0 22px;
+          column-gap: 0;
         }
-        .right {
-          padding: 20px 0 60px;
-        }
+
         .left {
-          padding: 60px 0 20px;
+          grid-column: 1;
+          grid-row: 1;
+          padding: 48px 0 24px;
+          gap: 18px;
+          justify-content: flex-start;
         }
+
+        .right {
+          grid-column: 1;
+          grid-row: 2;
+          padding: 8px 0 24px;
+        }
+
+        .footer-strip {
+          grid-column: 1;
+          grid-row: 3;
+        }
+
+        .phone-img {
+          height: auto;
+          width: min(240px, 65vw);
+          border-radius: 28px;
+        }
+
+        .phone-glow {
+          width: 240px;
+          height: 320px;
+        }
+
         .ft-1 {
-          left: -10px;
+          left: calc(50% - 190px);
+          top: 10%;
         }
         .ft-2 {
-          right: -10px;
+          right: calc(50% - 190px);
+          top: 44%;
         }
         .ft-3 {
-          left: -10px;
+          left: calc(50% - 200px);
+          bottom: 12%;
+        }
+
+        .steps {
+          grid-template-columns: 1fr;
+        }
+        .headline {
+          font-size: clamp(30px, 8vw, 44px);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .shell {
+          padding: 0 16px;
+        }
+        .left {
+          gap: 16px;
+          padding: 36px 0 20px;
+        }
+        .form-row button {
+          min-width: 110px;
+          font-size: 11px;
+          padding: 12px 12px;
+        }
+        .ft-1,
+        .ft-2,
+        .ft-3 {
+          display: none;
         }
       }
     </style>
   </head>
+
   <body>
     <div id="cursor" aria-hidden="true"></div>
     <div id="cursor-ring" aria-hidden="true"></div>
     <div class="glow-orb glow-orb-1" aria-hidden="true"></div>
     <div class="glow-orb glow-orb-2" aria-hidden="true"></div>
 
-    <main class="page">
-      <!-- LEFT COLUMN -->
-      <div class="left">
+    <div class="shell">
+      <!-- ══ LEFT COLUMN ══ -->
+      <main class="left">
         <div class="logo-wrap">
           <img
             src="images/LogoImg.png"
-            alt="Barrtar logo"
+            alt="Barrtar"
             class="logo-img"
             loading="eager"
             decoding="async"
@@ -818,94 +834,81 @@
           <span class="logo-badge">Early Access</span>
         </div>
 
-        <div>
-          <div class="eyebrow">The future of work is here</div>
-        </div>
+        <div class="eyebrow">The future of work is here</div>
 
         <h1 class="headline">
           Find anyone<br />
-          for <span class="highlight-fill">anything.</span><br />
-          <span class="highlight">Right now.</span>
+          for <span class="hl-fill">anything.</span><br />
+          <span class="hl-outline">Right now.</span>
         </h1>
 
         <p class="body-text">
-          Post a task, get matched to a verified person nearby. Move a sofa.
-          Walk your dog. Sell your old books. Get math tutoring. No platform
-          fees. No friction. Just people helping people — the way it should be.
+          Post a task, get matched to a verified person nearby in minutes. Move
+          a sofa. Walk your dog. Sell your old books. Get math tutoring. Zero
+          fees. Zero friction. Just people helping people.
         </p>
 
         <div class="features">
           <div class="feature-pill">
-            <span class="dot"></span> Verified Doers Only
+            <span class="pill-dot"></span>Verified Doers
           </div>
           <div class="feature-pill">
-            <span class="dot"></span> Zero Platform Fees
+            <span class="pill-dot"></span>Zero Fees
           </div>
           <div class="feature-pill">
-            <span class="dot"></span> Matchmaking Nearby
+            <span class="pill-dot"></span>5-Min Matchmaking
           </div>
           <div class="feature-pill">
-            <span class="dot"></span> Skilled & Unskilled
+            <span class="pill-dot"></span>Skilled &amp; Unskilled
           </div>
           <div class="feature-pill">
-            <span class="dot"></span> Online & Offline Tasks
+            <span class="pill-dot"></span>Online &amp; Offline
           </div>
         </div>
 
-        <div class="flow">
-          <div class="flow-step">
-            <div class="step-num">1</div>
-            <div class="step-content">
-              <h4>Post your task, set your price</h4>
-              <p>
-                Describe what you need and name your budget. You stay in
-                control.
-              </p>
+        <!-- 2×2 compact step grid -->
+        <div class="steps" role="list">
+          <div class="step" role="listitem">
+            <div class="sn">1</div>
+            <div class="sc">
+              <h4>Post &amp; set your price</h4>
+              <p>Describe the task. You control the budget.</p>
             </div>
           </div>
-          <div class="flow-step">
-            <div class="step-num">2</div>
-            <div class="step-content">
-              <h4>Matchmaking finds the right person</h4>
-              <p>
-                Nearby verified doers get matched by skill, location &
-                availability.
-              </p>
+          <div class="step" role="listitem">
+            <div class="sn">2</div>
+            <div class="sc">
+              <h4>Matched in minutes</h4>
+              <p>Skill, location &amp; availability — prioritised.</p>
             </div>
           </div>
-          <div class="flow-step">
-            <div class="step-num">3</div>
-            <div class="step-content">
-              <h4>No match? It hits the Bucket List</h4>
-              <p>
-                Unmatched tasks go public — anyone from the community can pick
-                it up within 3 hours.
-              </p>
+          <div class="step" role="listitem">
+            <div class="sn">3</div>
+            <div class="sc">
+              <h4>Bucket List fallback</h4>
+              <p>Unmatched? Community picks it up in 3 hrs.</p>
             </div>
           </div>
-          <div class="flow-step">
-            <div class="step-num">4</div>
-            <div class="step-content">
-              <h4>Get it done, pay directly</h4>
-              <p>
-                Work starts when you say so. Pay your doer straight — no
-                middleman, no fees.
-              </p>
+          <div class="step" role="listitem">
+            <div class="sn">4</div>
+            <div class="sc">
+              <h4>Done. Pay directly</h4>
+              <p>You say when work starts. No middleman.</p>
             </div>
           </div>
         </div>
 
-        <div class="verified-strip">
+        <div class="trust-strip">
           <svg
-            width="16"
-            height="16"
+            width="14"
+            height="14"
             viewBox="0 0 16 16"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
           >
             <path
               d="M8 1L10.16 5.26L15 5.82L11.5 9.14L12.36 14L8 11.77L3.64 14L4.5 9.14L1 5.82L5.84 5.26L8 1Z"
-              fill="rgba(71,217,255,0.6)"
+              fill="rgba(71,217,255,0.55)"
               stroke="#47d9ff"
               stroke-width="1"
               stroke-linejoin="round"
@@ -915,10 +918,10 @@
         </div>
 
         <form class="waitlist-section" id="waitlist-form" novalidate>
-          <label class="waitlist-label" for="email-input">
-            Join the waiting list
-          </label>
-          <div class="form-row">
+          <label class="waitlist-label" for="email-input"
+            >Join the waiting list</label
+          >
+          <div class="form-row" id="form-row">
             <input
               type="email"
               name="email"
@@ -940,48 +943,58 @@
           ></div>
           <div class="social-proof">
             <div class="avatars">
-              <div class="avatar avatar-a">R</div>
-              <div class="avatar avatar-b">P</div>
-              <div class="avatar avatar-c">S</div>
+              <div class="avatar av-a">R</div>
+              <div class="avatar av-b">P</div>
+              <div class="avatar av-c">S</div>
             </div>
             <span>Join 1,200+ people already on the list — free, always.</span>
           </div>
         </form>
-      </div>
+      </main>
 
-      <!-- RIGHT COLUMN -->
-      <div class="right">
+      <!-- ══ FOOTER (left col, row 2) ══ -->
+      <footer class="footer-strip">
+        <span>&copy; 2026 Barrtar. All rights reserved.</span>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="#" class="footer-link">Privacy</a>
+          <a href="#" class="footer-link">Terms</a>
+          <a href="#" class="footer-link">Contact</a>
+        </nav>
+      </footer>
+
+      <!-- ══ RIGHT COLUMN ══ -->
+      <div class="right" aria-hidden="true">
         <div class="phone-container">
-          <div class="phone-glow" aria-hidden="true"></div>
+          <div class="phone-glow"></div>
 
-          <div class="float-tag ft-1" aria-hidden="true">
-            <span class="icon">&#9889;</span>
+          <div class="float-tag ft-1">
+            <span class="ft-icon">⚡</span>
             <div>
-              <div class="tag-label">Matchmaking</div>
-              <span class="tag-val">Nearby</span>
+              <div class="ft-label">Matchmaking</div>
+              <span class="ft-val">Nearby</span>
             </div>
           </div>
 
-          <div class="float-tag ft-2" aria-hidden="true">
-            <span class="icon">&#128274;</span>
+          <div class="float-tag ft-2">
+            <span class="ft-icon">🔒</span>
             <div>
-              <div class="tag-label">Doer</div>
-              <span class="tag-val">Verified &#10003;</span>
+              <div class="ft-label">Doer status</div>
+              <span class="ft-val">Verified ✓</span>
             </div>
           </div>
 
-          <div class="float-tag ft-3" aria-hidden="true">
-            <span class="icon">&#128184;</span>
+          <div class="float-tag ft-3">
+            <span class="ft-icon">💸</span>
             <div>
-              <div class="tag-label">Platform fee</div>
-              <span class="tag-val">&#8377;0</span>
+              <div class="ft-label">Platform fee</div>
+              <span class="ft-val">₹0</span>
             </div>
           </div>
 
           <div class="phone-wrapper">
             <img
               src="images/mobile.png"
-              alt="Barrtar app preview"
+              alt="Barrtar app home screen preview"
               class="phone-img"
               loading="lazy"
               decoding="async"
@@ -989,80 +1002,68 @@
           </div>
         </div>
       </div>
-    </main>
-
-    <footer class="footer-strip">
-      <span>&copy; 2026 Barrtar. All rights reserved.</span>
-    </footer>
-
-    <div class="scroll-hint" aria-hidden="true">
-      <div class="scroll-line"></div>
-      Scroll
     </div>
+    <!-- /.shell -->
 
+    <!-- ══ CURSOR JS ══ -->
     <script>
       (() => {
-        const supportsFinePointer = window.matchMedia(
-          "(hover: hover) and (pointer: fine)"
+        const fine = window.matchMedia(
+          "(hover: hover) and (pointer: fine)",
         ).matches;
-        const prefersReducedMotion = window.matchMedia(
-          "(prefers-reduced-motion: reduce)"
+        const reduced = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
         ).matches;
+        if (!fine || reduced) return;
 
-        if (!supportsFinePointer || prefersReducedMotion) return;
-
-        const body = document.body;
+        document.body.classList.add("cce");
         const cursor = document.getElementById("cursor");
         const ring = document.getElementById("cursor-ring");
+        if (!cursor || !ring) return;
 
-        if (!body || !cursor || !ring) return;
+        let mx = -200,
+          my = -200,
+          rx = -200,
+          ry = -200;
+        const spd = 0.09;
 
-        body.classList.add("custom-cursor-enabled");
-
-        let mx = -100;
-        let my = -100;
-        let rx = -100;
-        let ry = -100;
-        const ringFollowSpeed = 0.08;
-
-        document.addEventListener("mousemove", (event) => {
-          mx = event.clientX;
-          my = event.clientY;
-          cursor.style.left = `${mx}px`;
-          cursor.style.top = `${my}px`;
+        document.addEventListener("mousemove", (e) => {
+          mx = e.clientX;
+          my = e.clientY;
+          cursor.style.left = mx + "px";
+          cursor.style.top = my + "px";
           cursor.style.opacity = "1";
           ring.style.opacity = "1";
         });
 
-        const animateRing = () => {
-          rx += (mx - rx) * ringFollowSpeed;
-          ry += (my - ry) * ringFollowSpeed;
-          ring.style.left = `${rx}px`;
-          ring.style.top = `${ry}px`;
-          window.requestAnimationFrame(animateRing);
-        };
-        animateRing();
+        (function raf() {
+          rx += (mx - rx) * spd;
+          ry += (my - ry) * spd;
+          ring.style.left = rx + "px";
+          ring.style.top = ry + "px";
+          requestAnimationFrame(raf);
+        })();
 
-        const hoverTargets = document.querySelectorAll(
-          "button, a, .feature-pill, .flow-step, input"
-        );
-        hoverTargets.forEach((element) => {
-          element.addEventListener("mouseenter", () => {
-            cursor.style.width = "20px";
-            cursor.style.height = "20px";
-            ring.style.width = "60px";
-            ring.style.height = "60px";
+        document
+          .querySelectorAll("button, a, .feature-pill, .step, input")
+          .forEach((el) => {
+            el.addEventListener("mouseenter", () => {
+              cursor.style.width = "18px";
+              cursor.style.height = "18px";
+              ring.style.width = "56px";
+              ring.style.height = "56px";
+            });
+            el.addEventListener("mouseleave", () => {
+              cursor.style.width = "11px";
+              cursor.style.height = "11px";
+              ring.style.width = "38px";
+              ring.style.height = "38px";
+            });
           });
-          element.addEventListener("mouseleave", () => {
-            cursor.style.width = "12px";
-            cursor.style.height = "12px";
-            ring.style.width = "40px";
-            ring.style.height = "40px";
-          });
-        });
       })();
     </script>
 
+    <!-- ══ FIREBASE (untouched) ══ -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
       import {
@@ -1090,52 +1091,59 @@
       const db = getFirestore(app);
 
       isAnalyticsSupported()
-        .then((supported) => {
-          if (supported) getAnalytics(app);
+        .then((ok) => {
+          if (ok) getAnalytics(app);
         })
         .catch(() => {});
 
       const waitlistForm = document.getElementById("waitlist-form");
       const emailInput = document.getElementById("email-input");
       const waitlistStatus = document.getElementById("waitlist-status");
+      const formRow = document.getElementById("form-row");
 
       const normalizeEmail = (v) => v.trim().toLowerCase();
-
       const validateEmail = (value) => {
         const email = normalizeEmail(value);
-        const basicPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-
+        const pat = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
         if (!email)
           return { valid: false, email, message: "Enter your email." };
-        if (!basicPattern.test(email))
-          return { valid: false, email, message: "Enter valid email." };
-
+        if (!pat.test(email))
+          return { valid: false, email, message: "Enter a valid email." };
         return { valid: true, email, message: "" };
       };
 
       if (waitlistForm && emailInput && waitlistStatus) {
-        const submitButton = waitlistForm.querySelector("button");
-        const defaultButtonText = submitButton.textContent;
+        const btn = waitlistForm.querySelector("button");
+        const defaultBtnText = btn.textContent;
 
-        waitlistForm.addEventListener("submit", async (event) => {
-          event.preventDefault();
+        waitlistForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
 
-          const validation = validateEmail(emailInput.value);
-          emailInput.value = validation.email;
+          const v = validateEmail(emailInput.value);
+          emailInput.value = v.email;
 
-          if (!validation.valid) {
-            waitlistStatus.textContent = validation.message;
+          if (!v.valid) {
+            formRow.classList.add("is-error");
+            waitlistStatus.textContent = v.message;
+            waitlistStatus.className = "waitlist-status is-error";
+            emailInput.setAttribute("aria-invalid", "true");
             return;
           }
 
-          submitButton.disabled = true;
-          submitButton.textContent = "Submitting...";
+          formRow.classList.remove("is-error");
+          formRow.classList.add("is-loading");
+          emailInput.removeAttribute("aria-invalid");
+          btn.disabled = true;
+          btn.textContent = "Submitting…";
+          btn.classList.add("is-loading");
+          waitlistStatus.textContent = "Saving your spot…";
+          waitlistStatus.className = "waitlist-status is-loading";
 
           try {
             await setDoc(
-              doc(db, "waitlist_emails", validation.email),
+              doc(db, "waitlist_emails", v.email),
               {
-                email: validation.email,
+                email: v.email,
                 createdAt: serverTimestamp(),
                 createdAtClient: new Date().toISOString(),
                 source: "website",
@@ -1143,16 +1151,23 @@
               { merge: true },
             );
 
-            submitButton.textContent = "You're on the list!";
+            formRow.classList.replace("is-loading", "is-success");
+            btn.textContent = "You're on the list!";
+            btn.classList.replace("is-loading", "is-success");
             emailInput.value = "";
+            emailInput.placeholder = "See you at launch 🎉";
             waitlistStatus.textContent =
               "Thanks! Your early-access request is in.";
-          } catch (error) {
-            console.error("Failed to save waitlist email:", error);
-            submitButton.disabled = false;
-            submitButton.textContent = defaultButtonText;
+            waitlistStatus.className = "waitlist-status is-success";
+          } catch (err) {
+            console.error("Waitlist error:", err);
+            formRow.classList.replace("is-loading", "is-error");
+            btn.disabled = false;
+            btn.textContent = defaultBtnText;
+            btn.classList.remove("is-loading");
             waitlistStatus.textContent =
               "Could not submit right now. Try again.";
+            waitlistStatus.className = "waitlist-status is-error";
           }
         });
       }
