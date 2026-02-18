@@ -38,21 +38,20 @@
         --border-strong: rgba(255, 255, 255, 0.11);
       }
 
-      /* ── DESKTOP: lock to viewport, no scroll ── */
-      html,
-      body {
+      html {
         height: 100%;
-        overflow: hidden;
       }
-
       body {
         background: var(--bg);
         color: var(--text);
         font-family: "DM Sans", sans-serif;
         overflow-x: hidden;
+        /* Desktop: no scroll */
+        height: 100%;
+        overflow-y: hidden;
       }
 
-      /* Noise texture */
+      /* Noise */
       body::before {
         content: "";
         position: fixed;
@@ -63,7 +62,7 @@
         opacity: 0.5;
       }
 
-      /* Ambient glows */
+      /* Glows */
       .glow-orb {
         position: fixed;
         border-radius: 50%;
@@ -114,7 +113,7 @@
         }
       }
 
-      /* ── SHELL: full viewport height, two columns ── */
+      /* ── DESKTOP LAYOUT ── */
       .shell {
         position: relative;
         z-index: 2;
@@ -128,7 +127,7 @@
         column-gap: 48px;
       }
 
-      /* ── LEFT COLUMN ── */
+      /* LEFT */
       .left {
         grid-column: 1;
         grid-row: 1;
@@ -150,7 +149,6 @@
         }
       }
 
-      /* Logo row */
       .logo-wrap {
         display: flex;
         align-items: center;
@@ -175,7 +173,6 @@
         border-radius: 100px;
       }
 
-      /* Eyebrow */
       .eyebrow {
         font-family: "Syne", sans-serif;
         font-size: 10px;
@@ -196,7 +193,6 @@
         flex-shrink: 0;
       }
 
-      /* Headline */
       .headline {
         font-family: "Syne", sans-serif;
         font-size: clamp(32px, 3vw, 50px);
@@ -212,7 +208,6 @@
         -webkit-text-stroke: 1.5px var(--accent);
       }
 
-      /* Body copy */
       .body-text {
         font-size: 14px;
         line-height: 1.7;
@@ -221,7 +216,6 @@
         max-width: 430px;
       }
 
-      /* Feature pills */
       .features {
         display: flex;
         flex-wrap: wrap;
@@ -280,7 +274,6 @@
         }
       }
 
-      /* ── Compact 2×2 step grid ── */
       .steps {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -337,7 +330,6 @@
         line-height: 1.5;
       }
 
-      /* Trust strip */
       .trust-strip {
         display: flex;
         align-items: center;
@@ -354,7 +346,7 @@
         flex-shrink: 0;
       }
 
-      /* ── Waitlist form ── */
+      /* Waitlist */
       .waitlist-section {
         display: flex;
         flex-direction: column;
@@ -494,7 +486,7 @@
         color: #fff;
       }
 
-      /* ── FOOTER (sits in left col, row 2) ── */
+      /* Footer */
       .footer-strip {
         grid-column: 1;
         grid-row: 2;
@@ -519,7 +511,7 @@
         color: var(--muted2);
       }
 
-      /* ── RIGHT COLUMN ── */
+      /* RIGHT */
       .right {
         grid-column: 2;
         grid-row: 1 / 3;
@@ -545,7 +537,6 @@
         align-items: center;
         justify-content: center;
       }
-
       .phone-glow {
         position: absolute;
         width: 300px;
@@ -571,7 +562,6 @@
           transform: scale(1.06);
         }
       }
-
       .phone-wrapper {
         position: relative;
         z-index: 1;
@@ -588,7 +578,6 @@
           transform: translateY(-14px) rotate(0.8deg);
         }
       }
-
       .phone-img {
         height: clamp(460px, 70vh, 640px);
         width: auto;
@@ -596,7 +585,6 @@
         border-radius: 36px;
       }
 
-      /* Float tags */
       .float-tag {
         position: absolute;
         background: rgba(15, 15, 18, 0.94);
@@ -655,15 +643,7 @@
         }
       }
 
-      /* ── Focus / a11y ── */
-      a:focus-visible,
-      button:focus-visible,
-      input:focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 2px;
-      }
-
-      /* ── Custom cursor ── */
+      /* ── CUSTOM CURSOR ── */
       #cursor {
         display: none;
         position: fixed;
@@ -695,7 +675,6 @@
           height 0.28s ease,
           opacity 0.28s ease;
       }
-
       @media (hover: hover) and (pointer: fine) {
         body.cce {
           cursor: none;
@@ -708,7 +687,6 @@
           display: block;
         }
       }
-
       @media (prefers-reduced-motion: reduce) {
         *,
         *::before,
@@ -723,7 +701,9 @@
         }
       }
 
-      /* ── RESPONSIVE: tablet / mobile — re-enable scroll ── */
+      /* ══════════════════════════════════════
+         MOBILE REDESIGN
+      ══════════════════════════════════════ */
       @media (max-width: 860px) {
         html,
         body {
@@ -732,83 +712,245 @@
           overflow-x: hidden;
         }
 
+        /* Stack everything vertically */
         .shell {
-          grid-template-columns: 1fr;
-          grid-template-rows: auto auto auto;
+          display: flex;
+          flex-direction: column;
           height: auto;
-          min-height: 100vh;
-          padding: 0 22px;
-          column-gap: 0;
+          min-height: 100svh;
+          padding: 0;
+          max-width: 100%;
         }
 
+        /* Mobile header bar */
         .left {
-          grid-column: 1;
-          grid-row: 1;
-          padding: 48px 0 24px;
-          gap: 18px;
+          order: 1;
+          padding: 0;
+          gap: 0;
           justify-content: flex-start;
         }
 
+        /* Top nav strip */
+        .logo-wrap {
+          padding: 20px 20px 0;
+          margin-bottom: 0;
+        }
+
+        /* Hero section — phone + text layered */
+        .mobile-hero {
+          display: block;
+          position: relative;
+          background: linear-gradient(
+            180deg,
+            rgba(232, 255, 71, 0.03) 0%,
+            transparent 60%
+          );
+          padding: 24px 20px 0;
+          text-align: center;
+          overflow: hidden;
+        }
+        .mobile-hero::before {
+          content: "";
+          position: absolute;
+          top: -60px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 340px;
+          height: 340px;
+          background: radial-gradient(
+            circle,
+            rgba(232, 255, 71, 0.1) 0%,
+            transparent 65%
+          );
+          pointer-events: none;
+        }
+
+        .eyebrow {
+          justify-content: center;
+          margin-bottom: 12px;
+          font-size: 9px;
+        }
+        .eyebrow::before {
+          width: 16px;
+        }
+
+        .headline {
+          font-size: clamp(34px, 9vw, 52px);
+          text-align: center;
+          margin-bottom: 12px;
+        }
+
+        .body-text {
+          font-size: 13.5px;
+          text-align: center;
+          max-width: 340px;
+          margin: 0 auto 20px;
+          color: var(--muted2);
+        }
+
+        /* Phone mockup inline in hero */
         .right {
-          grid-column: 1;
-          grid-row: 2;
-          padding: 8px 0 24px;
+          display: none; /* hide desktop right column */
         }
 
-        .footer-strip {
-          grid-column: 1;
-          grid-row: 3;
+        /* Mobile phone display — inside mobile-hero */
+        .mobile-phone-wrap {
+          display: block;
+          position: relative;
+          margin: 0 auto;
+          width: 200px;
         }
-
-        .phone-img {
+        .mobile-phone-wrap .phone-img {
           height: auto;
-          width: min(240px, 65vw);
-          border-radius: 28px;
+          width: 200px;
+          border-radius: 24px;
+          display: block;
+          margin: 0 auto;
+          filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.9))
+            drop-shadow(0 0 20px rgba(232, 255, 71, 0.08));
+          animation: float 6s ease-in-out infinite;
         }
-
-        .phone-glow {
+        .mobile-phone-glow {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
           width: 240px;
-          height: 320px;
+          height: 280px;
+          background: radial-gradient(
+            ellipse,
+            rgba(232, 255, 71, 0.12) 0%,
+            rgba(71, 217, 255, 0.05) 45%,
+            transparent 70%
+          );
+          filter: blur(30px);
+          animation: pulseGlow 4s ease-in-out infinite;
+          pointer-events: none;
+          z-index: -1;
         }
 
-        .ft-1 {
-          left: calc(50% - 190px);
-          top: 10%;
+        /* Floating tags — repositioned for mobile */
+        .mobile-tags {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+          flex-wrap: wrap;
+          padding: 16px 0 24px;
         }
-        .ft-2 {
-          right: calc(50% - 190px);
-          top: 44%;
+        .mobile-tag-chip {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          background: rgba(15, 15, 18, 0.9);
+          border: 1px solid var(--border-strong);
+          border-radius: 100px;
+          padding: 6px 11px;
+          font-size: 11px;
+          font-weight: 500;
+          color: var(--text);
+          backdrop-filter: blur(12px);
+          animation: popIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
         }
-        .ft-3 {
-          left: calc(50% - 200px);
-          bottom: 12%;
+        .mobile-tag-chip:nth-child(1) {
+          animation-delay: 0.5s;
+        }
+        .mobile-tag-chip:nth-child(2) {
+          animation-delay: 0.65s;
+        }
+        .mobile-tag-chip:nth-child(3) {
+          animation-delay: 0.8s;
+        }
+        .mtc-val {
+          color: var(--accent);
+          font-family: "Syne", sans-serif;
+          font-weight: 700;
+          font-size: 11px;
+        }
+        .mtc-icon {
+          font-size: 12px;
+        }
+
+        /* Content section below hero */
+        .mobile-content {
+          display: block;
+          padding: 8px 20px 0;
+        }
+
+        .features {
+          margin-bottom: 20px;
+          justify-content: center;
+        }
+        .feature-pill {
+          font-size: 11px;
+          padding: 5px 10px;
         }
 
         .steps {
           grid-template-columns: 1fr;
+          margin-bottom: 20px;
+          border-radius: 12px;
         }
-        .headline {
-          font-size: clamp(30px, 8vw, 44px);
+
+        .trust-strip {
+          max-width: 100%;
+          margin-bottom: 24px;
+          font-size: 11px;
+          border-radius: 10px;
+        }
+
+        /* Waitlist — full width, prominent on mobile */
+        .waitlist-section {
+          margin-bottom: 24px;
+        }
+        .form-row {
+          flex-direction: column;
+          border-radius: 14px;
+          overflow: hidden;
+        }
+        .form-row input {
+          padding: 15px 16px;
+          font-size: 15px;
+          border-bottom: 1px solid var(--border-strong);
+          width: 100%;
+        }
+        .form-row button {
+          min-width: unset;
+          width: 100%;
+          padding: 15px 20px;
+          font-size: 13px;
+          border-radius: 0;
+        }
+        .form-row button:hover:not(:disabled) {
+          padding-right: 20px;
+        }
+
+        .social-proof {
+          justify-content: center;
+        }
+
+        /* Footer */
+        .footer-strip {
+          order: 10;
+          padding: 16px 20px;
+          border-top: 1px solid var(--border);
+          flex-direction: column;
+          gap: 8px;
+          text-align: center;
+        }
+        .footer-links {
+          justify-content: center;
         }
       }
 
       @media (max-width: 480px) {
-        .shell {
-          padding: 0 16px;
+        .headline {
+          font-size: clamp(30px, 8.5vw, 40px);
         }
-        .left {
-          gap: 16px;
-          padding: 36px 0 20px;
+        .mobile-phone-wrap {
+          width: 170px;
         }
-        .form-row button {
-          min-width: 110px;
-          font-size: 11px;
-          padding: 12px 12px;
-        }
-        .ft-1,
-        .ft-2,
-        .ft-3 {
-          display: none;
+        .mobile-phone-wrap .phone-img {
+          width: 170px;
         }
       }
     </style>
@@ -821,8 +963,9 @@
     <div class="glow-orb glow-orb-2" aria-hidden="true"></div>
 
     <div class="shell">
-      <!-- ══ LEFT COLUMN ══ -->
+      <!-- ══ LEFT / MAIN COLUMN ══ -->
       <main class="left">
+        <!-- LOGO -->
         <div class="logo-wrap">
           <img
             src="images/LogoImg.png"
@@ -834,125 +977,171 @@
           <span class="logo-badge">Early Access</span>
         </div>
 
-        <div class="eyebrow">The future of work is here</div>
+        <!-- ── MOBILE HERO (hidden on desktop via CSS) ── -->
+        <div class="mobile-hero" id="mobile-hero-section">
+          <div class="eyebrow">The future of work is here</div>
+          <h1 class="headline">
+            Find anyone<br />for <span class="hl-fill">anything.</span><br />
+            <span class="hl-outline">Right now.</span>
+          </h1>
+          <p class="body-text">
+            Post a task, get matched to a verified person nearby in minutes.
+            Zero fees. Zero friction. Just people helping people.
+          </p>
 
-        <h1 class="headline">
-          Find anyone<br />
-          for <span class="hl-fill">anything.</span><br />
-          <span class="hl-outline">Right now.</span>
-        </h1>
-
-        <p class="body-text">
-          Post a task, get matched to a verified person nearby in minutes. Move
-          a sofa. Walk your dog. Sell your old books. Get math tutoring. Zero
-          fees. Zero friction. Just people helping people.
-        </p>
-
-        <div class="features">
-          <div class="feature-pill">
-            <span class="pill-dot"></span>Verified Doers
-          </div>
-          <div class="feature-pill">
-            <span class="pill-dot"></span>Zero Fees
-          </div>
-          <div class="feature-pill">
-            <span class="pill-dot"></span>Matchmaking
-          </div>
-          <div class="feature-pill">
-            <span class="pill-dot"></span>Skilled &amp; Unskilled
-          </div>
-          <div class="feature-pill">
-            <span class="pill-dot"></span>Online &amp; Offline
-          </div>
-        </div>
-
-        <!-- 2×2 compact step grid -->
-        <div class="steps" role="list">
-          <div class="step" role="listitem">
-            <div class="sn">1</div>
-            <div class="sc">
-              <h4>Post &amp; set your price</h4>
-              <p>Describe the task. You control the budget.</p>
-            </div>
-          </div>
-          <div class="step" role="listitem">
-            <div class="sn">2</div>
-            <div class="sc">
-              <h4>Matched in minutes</h4>
-              <p>Skill, location &amp; availability — prioritised.</p>
-            </div>
-          </div>
-          <div class="step" role="listitem">
-            <div class="sn">3</div>
-            <div class="sc">
-              <h4>Bucket List fallback</h4>
-              <p>Unmatched? Community picks it up in 3 hrs.</p>
-            </div>
-          </div>
-          <div class="step" role="listitem">
-            <div class="sn">4</div>
-            <div class="sc">
-              <h4>Done. Pay directly</h4>
-              <p>You say when work starts. No middleman.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="trust-strip">
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 16 16"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M8 1L10.16 5.26L15 5.82L11.5 9.14L12.36 14L8 11.77L3.64 14L4.5 9.14L1 5.82L5.84 5.26L8 1Z"
-              fill="rgba(71,217,255,0.55)"
-              stroke="#47d9ff"
-              stroke-width="1"
-              stroke-linejoin="round"
+          <!-- Phone mockup -->
+          <div class="mobile-phone-wrap">
+            <div class="mobile-phone-glow"></div>
+            <img
+              src="images/mobile.png"
+              alt="Barrtar app preview"
+              class="phone-img"
+              loading="eager"
+              decoding="async"
             />
-          </svg>
-          Every doer is government ID verified before they can accept a task.
+          </div>
+
+          <!-- Floating info chips -->
+          <div class="mobile-tags">
+            <div class="mobile-tag-chip">
+              <span class="mtc-icon">⚡</span>Nearby Match
+            </div>
+            <div class="mobile-tag-chip">
+              <span class="mtc-icon">🔒</span
+              ><span class="mtc-val">Verified ✓</span>
+            </div>
+            <div class="mobile-tag-chip">
+              <span class="mtc-icon">💸</span>₹0 Fees
+            </div>
+          </div>
         </div>
 
-        <form class="waitlist-section" id="waitlist-form" novalidate>
-          <label class="waitlist-label" for="email-input"
-            >Join the waiting list</label
-          >
-          <div class="form-row" id="form-row">
-            <input
-              type="email"
-              name="email"
-              id="email-input"
-              placeholder="your@email.com"
-              autocomplete="email"
-              inputmode="email"
-              maxlength="254"
-              spellcheck="false"
-              required
-              aria-describedby="waitlist-status"
-            />
-            <button type="submit">Get Early Access &rarr;</button>
-          </div>
-          <div
-            class="waitlist-status"
-            id="waitlist-status"
-            aria-live="polite"
-          ></div>
-          <div class="social-proof">
-            <div class="avatars">
-              <div class="avatar av-a">R</div>
-              <div class="avatar av-b">P</div>
-              <div class="avatar av-c">S</div>
+        <!-- ── MOBILE CONTENT ── -->
+        <div class="mobile-content" id="mobile-content-section">
+          <!-- Desktop eyebrow / headline / copy (hidden on mobile) -->
+          <div id="desktop-hero-text">
+            <div class="eyebrow" style="margin-bottom: 12px">
+              The future of work is here
             </div>
-            <span>Join 1,200+ people already on the list — free, always.</span>
+            <h1 class="headline" style="margin-bottom: 14px">
+              Find anyone<br />for <span class="hl-fill">anything.</span><br />
+              <span class="hl-outline">Right now.</span>
+            </h1>
+            <p class="body-text" style="margin-bottom: 18px">
+              Post a task, get matched to a verified person nearby in minutes.
+              Move a sofa. Walk your dog. Sell your old books. Get math
+              tutoring. Zero fees. Zero friction. Just people helping people.
+            </p>
           </div>
-        </form>
+
+          <div class="features">
+            <div class="feature-pill">
+              <span class="pill-dot"></span>Verified Doers
+            </div>
+            <div class="feature-pill">
+              <span class="pill-dot"></span>Zero Fees
+            </div>
+            <div class="feature-pill">
+              <span class="pill-dot"></span>Matchmaking
+            </div>
+            <div class="feature-pill">
+              <span class="pill-dot"></span>Skilled &amp; Unskilled
+            </div>
+            <div class="feature-pill">
+              <span class="pill-dot"></span>Online &amp; Offline
+            </div>
+          </div>
+
+          <div class="steps" role="list" style="margin-bottom: 18px">
+            <div class="step" role="listitem">
+              <div class="sn">1</div>
+              <div class="sc">
+                <h4>Post &amp; set your price</h4>
+                <p>Describe the task. You control the budget.</p>
+              </div>
+            </div>
+            <div class="step" role="listitem">
+              <div class="sn">2</div>
+              <div class="sc">
+                <h4>Matched in minutes</h4>
+                <p>Skill, location &amp; availability — prioritised.</p>
+              </div>
+            </div>
+            <div class="step" role="listitem">
+              <div class="sn">3</div>
+              <div class="sc">
+                <h4>Bucket List fallback</h4>
+                <p>Unmatched? Community picks it up in 3 hrs.</p>
+              </div>
+            </div>
+            <div class="step" role="listitem">
+              <div class="sn">4</div>
+              <div class="sc">
+                <h4>Done. Pay directly</h4>
+                <p>You say when work starts. No middleman.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="trust-strip">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 16 16"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M8 1L10.16 5.26L15 5.82L11.5 9.14L12.36 14L8 11.77L3.64 14L4.5 9.14L1 5.82L5.84 5.26L8 1Z"
+                fill="rgba(71,217,255,0.55)"
+                stroke="#47d9ff"
+                stroke-width="1"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Every doer is government ID verified before they can accept a task.
+          </div>
+
+          <form class="waitlist-section" id="waitlist-form" novalidate>
+            <label class="waitlist-label" for="email-input"
+              >Join the waiting list</label
+            >
+            <div class="form-row" id="form-row">
+              <input
+                type="email"
+                name="email"
+                id="email-input"
+                placeholder="your@email.com"
+                autocomplete="email"
+                inputmode="email"
+                maxlength="254"
+                spellcheck="false"
+                required
+                aria-describedby="waitlist-status"
+              />
+              <button type="submit">Get Early Access &rarr;</button>
+            </div>
+            <div
+              class="waitlist-status"
+              id="waitlist-status"
+              aria-live="polite"
+            ></div>
+            <div class="social-proof">
+              <div class="avatars">
+                <div class="avatar av-a">R</div>
+                <div class="avatar av-b">P</div>
+                <div class="avatar av-c">S</div>
+              </div>
+              <span
+                >Join 1,200+ people already on the list — free, always.</span
+              >
+            </div>
+          </form>
+        </div>
+        <!-- /.mobile-content -->
       </main>
 
-      <!-- ══ FOOTER (left col, row 2) ══ -->
+      <!-- ══ FOOTER ══ -->
       <footer class="footer-strip">
         <span>&copy; 2026 Barrtar. All rights reserved.</span>
         <nav class="footer-links" aria-label="Footer">
@@ -962,11 +1151,10 @@
         </nav>
       </footer>
 
-      <!-- ══ RIGHT COLUMN ══ -->
+      <!-- ══ RIGHT COLUMN (desktop only) ══ -->
       <div class="right" aria-hidden="true">
         <div class="phone-container">
           <div class="phone-glow"></div>
-
           <div class="float-tag ft-1">
             <span class="ft-icon">⚡</span>
             <div>
@@ -974,7 +1162,6 @@
               <span class="ft-val">Nearby</span>
             </div>
           </div>
-
           <div class="float-tag ft-2">
             <span class="ft-icon">🔒</span>
             <div>
@@ -982,7 +1169,6 @@
               <span class="ft-val">Verified ✓</span>
             </div>
           </div>
-
           <div class="float-tag ft-3">
             <span class="ft-icon">💸</span>
             <div>
@@ -990,7 +1176,6 @@
               <span class="ft-val">₹0</span>
             </div>
           </div>
-
           <div class="phone-wrapper">
             <img
               src="images/mobile.png"
@@ -1005,6 +1190,60 @@
     </div>
     <!-- /.shell -->
 
+    <!-- ══ SHOW/HIDE desktop hero text on mobile ══ -->
+    <script>
+      (function () {
+        const isMobile = window.innerWidth <= 860;
+        const desktopText = document.getElementById("desktop-hero-text");
+        const mobileHero = document.getElementById("mobile-hero-section");
+        if (desktopText && mobileHero) {
+          if (isMobile) {
+            desktopText.style.display = "none";
+            mobileHero.style.display = "block";
+          } else {
+            desktopText.style.display = "block";
+            mobileHero.style.display = "none";
+          }
+        }
+        // Re-check on resize
+        window.addEventListener("resize", function () {
+          const m = window.innerWidth <= 860;
+          if (desktopText) desktopText.style.display = m ? "none" : "block";
+          if (mobileHero) mobileHero.style.display = m ? "block" : "none";
+        });
+      })();
+    </script>
+
+    <!-- Also hide mobile-hero on desktop via CSS (belt + suspenders) -->
+    <style>
+      @media (min-width: 861px) {
+        #mobile-hero-section {
+          display: none !important;
+        }
+        #desktop-hero-text {
+          display: block !important;
+        }
+        .mobile-phone-wrap {
+          display: none !important;
+        }
+        .mobile-tags {
+          display: none !important;
+        }
+        .mobile-content {
+          padding: 0 !important;
+          display: contents !important;
+        }
+      }
+      @media (max-width: 860px) {
+        #desktop-hero-text {
+          display: none !important;
+        }
+        #mobile-hero-section {
+          display: block !important;
+        }
+      }
+    </style>
+
     <!-- ══ CURSOR JS ══ -->
     <script>
       (() => {
@@ -1015,18 +1254,15 @@
           "(prefers-reduced-motion: reduce)",
         ).matches;
         if (!fine || reduced) return;
-
         document.body.classList.add("cce");
         const cursor = document.getElementById("cursor");
         const ring = document.getElementById("cursor-ring");
         if (!cursor || !ring) return;
-
         let mx = -200,
           my = -200,
           rx = -200,
           ry = -200;
         const spd = 0.09;
-
         document.addEventListener("mousemove", (e) => {
           mx = e.clientX;
           my = e.clientY;
@@ -1035,7 +1271,6 @@
           cursor.style.opacity = "1";
           ring.style.opacity = "1";
         });
-
         (function raf() {
           rx += (mx - rx) * spd;
           ry += (my - ry) * spd;
@@ -1043,9 +1278,10 @@
           ring.style.top = ry + "px";
           requestAnimationFrame(raf);
         })();
-
         document
-          .querySelectorAll("button, a, .feature-pill, .step, input")
+          .querySelectorAll(
+            "button,a,.feature-pill,.step,input,.mobile-tag-chip",
+          )
           .forEach((el) => {
             el.addEventListener("mouseenter", () => {
               cursor.style.width = "18px";
@@ -1063,7 +1299,7 @@
       })();
     </script>
 
-    <!-- ══ FIREBASE (untouched) ══ -->
+    <!-- ══ FIREBASE ══ -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
       import {
@@ -1118,7 +1354,6 @@
 
         waitlistForm.addEventListener("submit", async (e) => {
           e.preventDefault();
-
           const v = validateEmail(emailInput.value);
           emailInput.value = v.email;
 
