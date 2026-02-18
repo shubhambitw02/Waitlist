@@ -46,9 +46,8 @@
         color: var(--text);
         font-family: "DM Sans", sans-serif;
         overflow-x: hidden;
-        /* Desktop: no scroll */
-        height: 100%;
-        overflow-y: hidden;
+        min-height: 100%;
+        overflow-y: auto;
       }
 
       /* Noise */
@@ -117,7 +116,7 @@
       .shell {
         position: relative;
         z-index: 2;
-        height: 100vh;
+        min-height: 100dvh;
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1fr auto;
@@ -213,7 +212,7 @@
         line-height: 1.7;
         color: var(--muted2);
         font-weight: 300;
-        max-width: 430px;
+        max-width: 100%;
       }
 
       .features {
