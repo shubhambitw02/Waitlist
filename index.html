@@ -338,10 +338,16 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: clamp(8px, 1.4vh, 18px);
+        gap: clamp(12px, 1.8vh, 22px);
         padding: clamp(12px, 2.5vh, 36px) 0;
         overflow: visible;
         animation: slideLeft 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+
+      #desktop-hero-text {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(6px, 1vh, 12px);
       }
       @keyframes slideLeft {
         from {
@@ -1273,15 +1279,15 @@
         <div class="mobile-content" id="mobile-content-section">
           <!-- Desktop hero text (hidden on mobile via JS + CSS) -->
           <div id="desktop-hero-text">
-            <div class="eyebrow" style="margin-bottom: clamp(6px, 1vh, 12px)">
+            <div class="eyebrow">
               Your neighbourhood, finally working for you
             </div>
-            <h1 class="headline" style="margin-bottom: clamp(6px, 1vh, 14px)">
+            <h1 class="headline">
               Someone nearby<br />will <span class="hl-fill">do that</span
               ><br />
               <span class="hl-outline">for you.</span>
             </h1>
-            <p class="body-text" style="margin-bottom: clamp(6px, 1vh, 16px)">
+            <p class="body-text">
               Stand-in for an iPhone queue, a sharp bargainer at Chor Bazaar,
               someone to walk your dog while you're stuck in traffic, a warm
               face to come with you to the hospital — if you can describe it, it
@@ -1359,7 +1365,7 @@
           </div>
 
           <!-- Trust banners -->
-          <div class="trust-banners" style="margin-top: clamp(6px, 1vh, 14px)">
+          <div class="trust-banners">
             <div class="trust-strip">
               <svg
                 width="14"
@@ -1397,7 +1403,6 @@
             class="waitlist-section"
             id="waitlist-form"
             novalidate
-            style="margin-top: clamp(6px, 1vh, 14px)"
           >
             <label class="waitlist-label" for="email-input"
               >Get early access — it's free</label
