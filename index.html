@@ -66,8 +66,17 @@
     <link rel="icon" href="favicon/favicon.ico" sizes="any" />
     <link rel="shortcut icon" href="favicon/favicon.ico" />
     <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="favicon/favicon-96x96.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicon/apple-touch-icon.png"
+    />
     <link rel="manifest" href="favicon/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -75,6 +84,7 @@
       href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
       rel="stylesheet"
     />
+
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -98,9 +108,7 @@
             "url": "https://barrtar.com/",
             "name": "Barrtar",
             "inLanguage": "en-IN",
-            "publisher": {
-              "@id": "https://barrtar.com/#organization"
-            }
+            "publisher": { "@id": "https://barrtar.com/#organization" }
           },
           {
             "@type": "WebPage",
@@ -114,12 +122,8 @@
               "width": 1024,
               "height": 1536
             },
-            "isPartOf": {
-              "@id": "https://barrtar.com/#website"
-            },
-            "about": {
-              "@id": "https://barrtar.com/#organization"
-            },
+            "isPartOf": { "@id": "https://barrtar.com/#website" },
+            "about": { "@id": "https://barrtar.com/#organization" },
             "inLanguage": "en-IN"
           },
           {
@@ -137,9 +141,7 @@
               "price": "0",
               "priceCurrency": "INR"
             },
-            "publisher": {
-              "@id": "https://barrtar.com/#organization"
-            }
+            "publisher": { "@id": "https://barrtar.com/#organization" }
           },
           {
             "@type": "FAQPage",
@@ -192,6 +194,22 @@
                   "@type": "Answer",
                   "text": "Yes. You can switch between posting tasks and earning by completing tasks at any time."
                 }
+              },
+              {
+                "@type": "Question",
+                "name": "What happens if there's a dispute after a task is completed?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Both task creators and Doers can raise a dispute on any completed task directly within the app. Barrtar reviews the evidence from both sides and mediates a fair resolution. No one is left without a voice."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can specially-abled people find work on Barrtar?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Task creators can mark tasks as specially-abled friendly when posting. Barrtar's matching system then prioritises connecting those tasks with Doers who identify as specially abled, giving everyone a fair opportunity to earn."
+                }
               }
             ]
           }
@@ -233,7 +251,6 @@
         overflow-y: auto;
       }
 
-      /* Noise */
       body::before {
         content: "";
         position: fixed;
@@ -244,7 +261,6 @@
         opacity: 0.5;
       }
 
-      /* Glows */
       .glow-orb {
         position: fixed;
         border-radius: 50%;
@@ -295,7 +311,6 @@
         }
       }
 
-      /* ── DESKTOP LAYOUT ── */
       .shell {
         position: relative;
         z-index: 2;
@@ -309,7 +324,6 @@
         column-gap: 48px;
       }
 
-      /* LEFT */
       .left {
         grid-column: 1;
         grid-row: 1;
@@ -445,6 +459,9 @@
       .feature-pill:nth-child(5) {
         animation-delay: 0.4s;
       }
+      .feature-pill:nth-child(6) {
+        animation-delay: 0.48s;
+      }
       @keyframes popIn {
         from {
           opacity: 0;
@@ -512,6 +529,7 @@
         line-height: 1.5;
       }
 
+      /* ── Trust strip (verification) ── */
       .trust-strip {
         display: flex;
         align-items: center;
@@ -526,6 +544,83 @@
       }
       .trust-strip svg {
         flex-shrink: 0;
+      }
+
+      /* ── NEW: Community trust banners row ── */
+      .trust-banners {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      /* ── NEW: Dispute resolution banner ── */
+      .dispute-strip {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 13px;
+        background: rgba(255, 180, 0, 0.05);
+        border: 1px solid rgba(255, 180, 0, 0.18);
+        border-radius: 9px;
+        font-size: 11.5px;
+        color: #f0c060;
+      }
+      .dispute-strip .ds-icon {
+        font-size: 15px;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .dispute-strip .ds-body {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .dispute-strip .ds-title {
+        font-family: "Syne", sans-serif;
+        font-size: 10.5px;
+        font-weight: 700;
+        color: #f5d080;
+        letter-spacing: 0.04em;
+      }
+      .dispute-strip .ds-desc {
+        color: #c8a44a;
+        font-size: 11px;
+        line-height: 1.5;
+      }
+
+      /* ── NEW: Inclusive work banner ── */
+      .inclusive-strip {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 13px;
+        background: rgba(160, 100, 255, 0.05);
+        border: 1px solid rgba(160, 100, 255, 0.18);
+        border-radius: 9px;
+        font-size: 11.5px;
+        color: #c4a0f0;
+      }
+      .inclusive-strip .is-icon {
+        font-size: 15px;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .inclusive-strip .is-body {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .inclusive-strip .is-title {
+        font-family: "Syne", sans-serif;
+        font-size: 10.5px;
+        font-weight: 700;
+        color: #d4b8ff;
+        letter-spacing: 0.04em;
+      }
+      .inclusive-strip .is-desc {
+        color: #a080d0;
+        font-size: 11px;
+        line-height: 1.5;
       }
 
       /* Waitlist */
@@ -668,7 +763,6 @@
         color: #fff;
       }
 
-      /* Footer */
       .footer-strip {
         grid-column: 1;
         grid-row: 2;
@@ -693,7 +787,6 @@
         color: var(--muted2);
       }
 
-      /* RIGHT */
       .right {
         grid-column: 2;
         grid-row: 1 / 3;
@@ -825,7 +918,6 @@
         }
       }
 
-      /* ── CUSTOM CURSOR ── */
       #cursor {
         display: none;
         position: fixed;
@@ -883,9 +975,7 @@
         }
       }
 
-      /* ══════════════════════════════════════
-         MOBILE REDESIGN
-      ══════════════════════════════════════ */
+      /* ══════════════════════════════════════ MOBILE ══════════════════════════════════════ */
       @media (max-width: 860px) {
         html,
         body {
@@ -893,8 +983,6 @@
           overflow: auto;
           overflow-x: hidden;
         }
-
-        /* Stack everything vertically */
         .shell {
           display: flex;
           flex-direction: column;
@@ -903,22 +991,16 @@
           padding: 0;
           max-width: 100%;
         }
-
-        /* Mobile header bar */
         .left {
           order: 1;
           padding: 0;
           gap: 0;
           justify-content: flex-start;
         }
-
-        /* Top nav strip */
         .logo-wrap {
           padding: 20px 20px 0;
           margin-bottom: 0;
         }
-
-        /* Hero section — phone + text layered */
         .mobile-hero {
           display: block;
           position: relative;
@@ -946,7 +1028,6 @@
           );
           pointer-events: none;
         }
-
         .eyebrow {
           justify-content: center;
           margin-bottom: 12px;
@@ -955,13 +1036,11 @@
         .eyebrow::before {
           width: 16px;
         }
-
         .headline {
           font-size: clamp(34px, 9vw, 52px);
           text-align: center;
           margin-bottom: 12px;
         }
-
         .body-text {
           font-size: 13.5px;
           text-align: center;
@@ -969,13 +1048,9 @@
           margin: 0 auto 20px;
           color: var(--muted2);
         }
-
-        /* Phone mockup inline in hero */
         .right {
-          display: none; /* hide desktop right column */
+          display: none;
         }
-
-        /* Mobile phone display — inside mobile-hero */
         .mobile-phone-wrap {
           display: block;
           position: relative;
@@ -1010,8 +1085,6 @@
           pointer-events: none;
           z-index: -1;
         }
-
-        /* Floating tags — repositioned for mobile */
         .mobile-tags {
           display: flex;
           justify-content: center;
@@ -1051,13 +1124,10 @@
         .mtc-icon {
           font-size: 12px;
         }
-
-        /* Content section below hero */
         .mobile-content {
           display: block;
           padding: 8px 20px 0;
         }
-
         .features {
           margin-bottom: 20px;
           justify-content: center;
@@ -1066,21 +1136,21 @@
           font-size: 11px;
           padding: 5px 10px;
         }
-
         .steps {
           grid-template-columns: 1fr;
           margin-bottom: 20px;
           border-radius: 12px;
         }
-
-        .trust-strip {
-          max-width: 100%;
+        .trust-banners {
           margin-bottom: 24px;
+        }
+        .trust-strip,
+        .dispute-strip,
+        .inclusive-strip {
+          max-width: 100%;
           font-size: 11px;
           border-radius: 10px;
         }
-
-        /* Waitlist — full width, prominent on mobile */
         .waitlist-section {
           margin-bottom: 24px;
         }
@@ -1105,12 +1175,9 @@
         .form-row button:hover:not(:disabled) {
           padding-right: 20px;
         }
-
         .social-proof {
           justify-content: center;
         }
-
-        /* Footer */
         .footer-strip {
           order: 10;
           padding: 16px 20px;
@@ -1123,7 +1190,6 @@
           justify-content: center;
         }
       }
-
       @media (max-width: 480px) {
         .headline {
           font-size: clamp(30px, 8.5vw, 40px);
@@ -1161,7 +1227,7 @@
           <span class="logo-badge">Early Access</span>
         </div>
 
-        <!-- ── MOBILE HERO (hidden on desktop via CSS) ── -->
+        <!-- ── MOBILE HERO ── -->
         <div class="mobile-hero" id="mobile-hero-section">
           <div class="eyebrow">Your neighbourhood, but it works for you</div>
           <h1 class="headline">
@@ -1173,8 +1239,6 @@
             by picks it up and gets paid. And on a slow afternoon? That someone
             could be you.
           </p>
-
-          <!-- Phone mockup -->
           <div class="mobile-phone-wrap">
             <div class="mobile-phone-glow"></div>
             <img
@@ -1188,8 +1252,6 @@
               decoding="async"
             />
           </div>
-
-          <!-- Floating info chips -->
           <div class="mobile-tags">
             <div class="mobile-tag-chip">
               <span class="mtc-icon">🙋</span>Post any task
@@ -1204,9 +1266,9 @@
           </div>
         </div>
 
-        <!-- ── MOBILE CONTENT ── -->
+        <!-- ── CONTENT ── -->
         <div class="mobile-content" id="mobile-content-section">
-          <!-- Desktop eyebrow / headline / copy (hidden on mobile) -->
+          <!-- Desktop hero text (hidden on mobile) -->
           <div id="desktop-hero-text">
             <div class="eyebrow" style="margin-bottom: 12px">
               Your neighbourhood, but it works for you
@@ -1225,6 +1287,7 @@
             </p>
           </div>
 
+          <!-- Feature pills -->
           <div class="features">
             <div class="feature-pill">
               <span class="pill-dot"></span>Any task, any size
@@ -1241,8 +1304,12 @@
             <div class="feature-pill">
               <span class="pill-dot"></span>Verified Doers
             </div>
+            <div class="feature-pill">
+              <span class="pill-dot"></span>Inclusive earning
+            </div>
           </div>
 
+          <!-- How it works steps -->
           <div class="steps" role="list" style="margin-bottom: 18px">
             <div class="step" role="listitem">
               <div class="sn">1</div>
@@ -1288,26 +1355,74 @@
             </div>
           </div>
 
-          <div class="trust-strip">
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 16 16"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M8 1L10.16 5.26L15 5.82L11.5 9.14L12.36 14L8 11.77L3.64 14L4.5 9.14L1 5.82L5.84 5.26L8 1Z"
-                fill="rgba(71,217,255,0.55)"
-                stroke="#47d9ff"
-                stroke-width="1"
-                stroke-linejoin="round"
-              />
-            </svg>
-            Every Doer is real — government ID verified before they accept their
-            first task.
-          </div>
+          <!-- ── Trust banners: verification + dispute + inclusive ── -->
+          <div class="trust-banners">
+            <!-- Existing: Verified Doers -->
+            <div class="trust-strip">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 16 16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M8 1L10.16 5.26L15 5.82L11.5 9.14L12.36 14L8 11.77L3.64 14L4.5 9.14L1 5.82L5.84 5.26L8 1Z"
+                  fill="rgba(71,217,255,0.55)"
+                  stroke="#47d9ff"
+                  stroke-width="1"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              Every Doer is real — government ID verified before they accept
+              their first task.
+            </div>
 
+            <!-- NEW: Dispute resolution -->
+            <div
+              class="dispute-strip"
+              role="note"
+              aria-label="Dispute resolution information"
+            >
+              <span class="ds-icon">⚖️</span>
+              <div class="ds-body">
+                <span class="ds-title"
+                  >Fair Dispute Resolution — Built Into the App</span
+                >
+                <span class="ds-desc"
+                  >Task not done right? Payment not received? Both creators and
+                  Doers can raise a dispute on any completed task, directly from
+                  the app. Barrtar reviews both sides and steps in to mediate —
+                  so no one is ever left in the lurch after the work is
+                  done.</span
+                >
+              </div>
+            </div>
+
+            <!-- NEW: Inclusive earning -->
+            <div
+              class="inclusive-strip"
+              role="note"
+              aria-label="Inclusive earning information"
+            >
+              <span class="is-icon">♿</span>
+              <div class="is-body">
+                <span class="is-title"
+                  >Work for Everyone — Including Specially-Abled Doers</span
+                >
+                <span class="is-desc"
+                  >When posting a task, creators can mark it as specially-abled
+                  friendly. Barrtar's matching system then prioritises
+                  connecting those tasks with Doers who identify as specially
+                  abled — giving everyone in the neighbourhood a genuine shot at
+                  earning on their own terms.</span
+                >
+              </div>
+            </div>
+          </div>
+          <!-- /.trust-banners -->
+
+          <!-- Waitlist form -->
           <form class="waitlist-section" id="waitlist-form" novalidate>
             <label class="waitlist-label" for="email-input"
               >Get early access — it's free</label
@@ -1399,7 +1514,7 @@
     </div>
     <!-- /.shell -->
 
-    <!-- ══ SHOW/HIDE desktop hero text on mobile ══ -->
+    <!-- Show/hide desktop vs mobile hero text -->
     <script>
       (function () {
         const isMobile = window.innerWidth <= 860;
@@ -1414,7 +1529,6 @@
             mobileHero.style.display = "none";
           }
         }
-        // Re-check on resize
         window.addEventListener("resize", function () {
           const m = window.innerWidth <= 860;
           if (desktopText) desktopText.style.display = m ? "none" : "block";
@@ -1423,7 +1537,6 @@
       })();
     </script>
 
-    <!-- Also hide mobile-hero on desktop via CSS (belt + suspenders) -->
     <style>
       @media (min-width: 861px) {
         #mobile-hero-section {
@@ -1453,7 +1566,7 @@
       }
     </style>
 
-    <!-- ══ CURSOR JS ══ -->
+    <!-- Cursor JS -->
     <script>
       (() => {
         const fine = window.matchMedia(
@@ -1508,7 +1621,7 @@
       })();
     </script>
 
-    <!-- ══ FIREBASE ══ -->
+    <!-- ══ FIREBASE (unchanged) ══ -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
       import {
