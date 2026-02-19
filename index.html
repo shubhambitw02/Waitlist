@@ -35,10 +35,7 @@
       property="og:description"
       content="Barrtar is India's peer-to-peer task marketplace. Post any task, find someone nearby, or pick up local tasks to earn. Zero platform fees with verified Doers."
     />
-    <meta
-      property="og:image"
-      content="https://barrtar.com/images/mobile.png"
-    />
+    <meta property="og:image" content="https://barrtar.com/images/mobile.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1024" />
     <meta property="og:image:height" content="1536" />
@@ -247,7 +244,10 @@
         color: var(--text);
         font-family: "DM Sans", sans-serif;
         overflow-x: hidden;
-        min-height: 100%;
+        /* Full-height with safe fallback chain; still allows scroll when content exceeds viewport. */
+        min-height: 100vh;
+        min-height: 100svh;
+        min-height: 100dvh;
         overflow-y: auto;
       }
 
@@ -311,9 +311,17 @@
         }
       }
 
+      /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         DESKTOP SHELL — all gap/padding
+         scale with vh so nothing overflows
+         on short laptop screens
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
       .shell {
         position: relative;
         z-index: 2;
+        /* Fill viewport when possible, expand naturally when content needs more space. */
+        min-height: 100vh;
+        min-height: 100svh;
         min-height: 100dvh;
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -330,8 +338,9 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 20px;
-        padding: 36px 0;
+        gap: clamp(8px, 1.4vh, 18px);
+        padding: clamp(12px, 2.5vh, 36px) 0;
+        overflow: visible;
         animation: slideLeft 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
       }
       @keyframes slideLeft {
@@ -349,9 +358,10 @@
         display: flex;
         align-items: center;
         gap: 12px;
+        flex-shrink: 0;
       }
       .logo-img {
-        height: 28px;
+        height: 26px;
         width: auto;
         filter: brightness(10) saturate(0);
         opacity: 0.88;
@@ -380,6 +390,7 @@
         align-items: center;
         gap: 10px;
         opacity: 0.85;
+        flex-shrink: 0;
       }
       .eyebrow::before {
         content: "";
@@ -391,10 +402,11 @@
 
       .headline {
         font-family: "Syne", sans-serif;
-        font-size: clamp(32px, 3vw, 50px);
+        font-size: clamp(24px, min(2.8vw, 5.2vh), 48px);
         font-weight: 800;
-        line-height: 1.04;
+        line-height: 1.05;
         letter-spacing: -0.025em;
+        flex-shrink: 0;
       }
       .hl-fill {
         color: var(--accent);
@@ -405,17 +417,19 @@
       }
 
       .body-text {
-        font-size: 14px;
+        font-size: clamp(11.5px, 1.3vh, 13.5px);
         line-height: 1.7;
         color: var(--muted2);
         font-weight: 300;
-        max-width: 100%;
+        max-width: 440px;
+        flex-shrink: 0;
       }
 
       .features {
         display: flex;
         flex-wrap: wrap;
-        gap: 7px;
+        gap: 6px;
+        flex-shrink: 0;
       }
       .feature-pill {
         display: flex;
@@ -424,8 +438,8 @@
         background: var(--surface2);
         border: 1px solid var(--border-strong);
         border-radius: 100px;
-        padding: 5px 12px;
-        font-size: 11.5px;
+        padding: clamp(3px, 0.45vh, 5px) 12px;
+        font-size: clamp(10px, 1.05vh, 11.5px);
         color: var(--muted2);
         transition: all 0.22s ease;
         animation: popIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
@@ -481,10 +495,11 @@
         border: 1px solid var(--border);
         border-radius: 14px;
         overflow: hidden;
+        flex-shrink: 0;
       }
       .step {
         background: var(--bg);
-        padding: 13px 15px;
+        padding: clamp(7px, 1vh, 13px) 15px;
         display: flex;
         gap: 10px;
         align-items: flex-start;
@@ -500,8 +515,8 @@
         border-color: var(--accent);
       }
       .sn {
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
         border: 1px solid var(--border-strong);
         display: flex;
@@ -517,28 +532,36 @@
       }
       .sc h4 {
         font-family: "Syne", sans-serif;
-        font-size: 11.5px;
+        font-size: clamp(9.5px, 1.05vh, 11.5px);
         font-weight: 700;
         color: var(--text);
         margin-bottom: 2px;
         line-height: 1.3;
       }
       .sc p {
-        font-size: 11px;
-        color: var(--text);
+        font-size: clamp(9px, 0.95vh, 11px);
+        color: var(--muted2);
         line-height: 1.5;
       }
 
-      /* ── Trust strip (verification) ── */
+      /* Trust banners container */
+      .trust-banners {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(5px, 0.7vh, 8px);
+        flex-shrink: 0;
+      }
+
+      /* Verified strip */
       .trust-strip {
         display: flex;
         align-items: center;
         gap: 8px;
-        padding: 8px 13px;
+        padding: clamp(5px, 0.7vh, 8px) 13px;
         background: rgba(71, 217, 255, 0.05);
         border: 1px solid rgba(71, 217, 255, 0.13);
         border-radius: 9px;
-        font-size: 11.5px;
+        font-size: clamp(10px, 0.95vh, 11.5px);
         color: #79d5ee;
         max-width: fit-content;
       }
@@ -546,88 +569,48 @@
         flex-shrink: 0;
       }
 
-      /* ── NEW: Community trust banners row ── */
-      .trust-banners {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      /* ── NEW: Dispute resolution banner ── */
+      /* Dispute strip */
       .dispute-strip {
         display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 10px 13px;
+        align-items: center;
+        gap: 8px;
+        padding: clamp(5px, 0.7vh, 8px) 13px;
         background: rgba(255, 180, 0, 0.05);
         border: 1px solid rgba(255, 180, 0, 0.18);
         border-radius: 9px;
-        font-size: 11.5px;
-        color: #f0c060;
+        font-size: clamp(10px, 0.95vh, 11.5px);
+        color: #c8a44a;
+        max-width: fit-content;
       }
       .dispute-strip .ds-icon {
-        font-size: 15px;
+        font-size: 13px;
         flex-shrink: 0;
-        margin-top: 1px;
-      }
-      .dispute-strip .ds-body {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
-      .dispute-strip .ds-title {
-        font-family: "Syne", sans-serif;
-        font-size: 10.5px;
-        font-weight: 700;
-        color: #f5d080;
-        letter-spacing: 0.04em;
-      }
-      .dispute-strip .ds-desc {
-        color: #c8a44a;
-        font-size: 11px;
-        line-height: 1.5;
       }
 
-      /* ── NEW: Inclusive work banner ── */
+      /* Inclusive strip */
       .inclusive-strip {
         display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 10px 13px;
+        align-items: center;
+        gap: 8px;
+        padding: clamp(5px, 0.7vh, 8px) 13px;
         background: rgba(160, 100, 255, 0.05);
         border: 1px solid rgba(160, 100, 255, 0.18);
         border-radius: 9px;
-        font-size: 11.5px;
-        color: #c4a0f0;
+        font-size: clamp(10px, 0.95vh, 11.5px);
+        color: #a080d0;
+        max-width: fit-content;
       }
       .inclusive-strip .is-icon {
-        font-size: 15px;
+        font-size: 13px;
         flex-shrink: 0;
-        margin-top: 1px;
-      }
-      .inclusive-strip .is-body {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
-      .inclusive-strip .is-title {
-        font-family: "Syne", sans-serif;
-        font-size: 10.5px;
-        font-weight: 700;
-        color: #d4b8ff;
-        letter-spacing: 0.04em;
-      }
-      .inclusive-strip .is-desc {
-        color: #a080d0;
-        font-size: 11px;
-        line-height: 1.5;
       }
 
       /* Waitlist */
       .waitlist-section {
         display: flex;
         flex-direction: column;
-        gap: 9px;
+        gap: 7px;
+        flex-shrink: 0;
       }
       .waitlist-label {
         font-family: "Syne", sans-serif;
@@ -668,7 +651,7 @@
         background: transparent;
         border: none;
         outline: none;
-        padding: 12px 16px;
+        padding: clamp(8px, 1.1vh, 12px) 16px;
         font-family: "DM Sans", sans-serif;
         font-size: 13.5px;
         color: var(--text);
@@ -683,7 +666,7 @@
         background: var(--accent);
         color: var(--bg);
         border: none;
-        padding: 12px 20px;
+        padding: clamp(8px, 1.1vh, 12px) 20px;
         font-family: "Syne", sans-serif;
         font-size: 12px;
         font-weight: 700;
@@ -710,8 +693,8 @@
       }
 
       .waitlist-status {
-        min-height: 14px;
-        font-size: 11.5px;
+        min-height: 13px;
+        font-size: 11px;
         color: var(--muted);
         font-weight: 500;
       }
@@ -729,15 +712,15 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        font-size: 11.5px;
+        font-size: 11px;
         color: var(--muted);
       }
       .avatars {
         display: flex;
       }
       .avatar {
-        width: 23px;
-        height: 23px;
+        width: 22px;
+        height: 22px;
         border-radius: 50%;
         border: 2px solid var(--bg);
         margin-left: -5px;
@@ -769,10 +752,11 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 12px 0;
+        padding: clamp(8px, 1vh, 12px) 0;
         border-top: 1px solid var(--border);
         font-size: 11px;
         color: var(--muted);
+        flex-shrink: 0;
       }
       .footer-links {
         display: flex;
@@ -787,12 +771,14 @@
         color: var(--muted2);
       }
 
+      /* RIGHT column */
       .right {
         grid-column: 2;
         grid-row: 1 / 3;
         display: flex;
         align-items: center;
         justify-content: center;
+        overflow: hidden;
         animation: slideRight 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
       }
       @keyframes slideRight {
@@ -854,7 +840,7 @@
         }
       }
       .phone-img {
-        height: clamp(460px, 70vh, 640px);
+        height: clamp(340px, 70vh, 620px);
         width: auto;
         display: block;
         border-radius: 36px;
@@ -918,6 +904,7 @@
         }
       }
 
+      /* Custom cursor */
       #cursor {
         display: none;
         position: fixed;
@@ -975,7 +962,37 @@
         }
       }
 
-      /* ══════════════════════════════════════ MOBILE ══════════════════════════════════════ */
+      /* Short-screen desktop: progressively hide less critical elements */
+      @media (max-height: 720px) and (min-width: 861px) {
+        .body-text {
+          display: none;
+        }
+        .sc p {
+          display: none;
+        }
+        .step {
+          padding: 8px 12px;
+        }
+        .dispute-strip,
+        .inclusive-strip {
+          display: none;
+        }
+      }
+      @media (max-height: 600px) and (min-width: 861px) {
+        .features {
+          display: none;
+        }
+        .eyebrow {
+          display: none;
+        }
+        .trust-strip {
+          display: none;
+        }
+      }
+
+      /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+         MOBILE
+      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
       @media (max-width: 860px) {
         html,
         body {
@@ -996,11 +1013,12 @@
           padding: 0;
           gap: 0;
           justify-content: flex-start;
+          overflow: visible;
         }
         .logo-wrap {
           padding: 20px 20px 0;
-          margin-bottom: 0;
         }
+
         .mobile-hero {
           display: block;
           position: relative;
@@ -1028,6 +1046,7 @@
           );
           pointer-events: none;
         }
+
         .eyebrow {
           justify-content: center;
           margin-bottom: 12px;
@@ -1047,10 +1066,13 @@
           max-width: 340px;
           margin: 0 auto 20px;
           color: var(--muted2);
+          display: block;
         }
+
         .right {
           display: none;
         }
+
         .mobile-phone-wrap {
           display: block;
           position: relative;
@@ -1085,6 +1107,7 @@
           pointer-events: none;
           z-index: -1;
         }
+
         .mobile-tags {
           display: flex;
           justify-content: center;
@@ -1124,6 +1147,7 @@
         .mtc-icon {
           font-size: 12px;
         }
+
         .mobile-content {
           display: block;
           padding: 8px 20px 0;
@@ -1141,6 +1165,11 @@
           margin-bottom: 20px;
           border-radius: 12px;
         }
+        .sc p {
+          display: block;
+          color: var(--muted2);
+        }
+
         .trust-banners {
           margin-bottom: 24px;
         }
@@ -1150,7 +1179,9 @@
           max-width: 100%;
           font-size: 11px;
           border-radius: 10px;
+          display: flex;
         }
+
         .waitlist-section {
           margin-bottom: 24px;
         }
@@ -1178,6 +1209,7 @@
         .social-proof {
           justify-content: center;
         }
+
         .footer-strip {
           order: 10;
           padding: 16px 20px;
@@ -1190,6 +1222,7 @@
           justify-content: center;
         }
       }
+
       @media (max-width: 480px) {
         .headline {
           font-size: clamp(30px, 8.5vw, 40px);
@@ -1211,9 +1244,7 @@
     <div class="glow-orb glow-orb-2" aria-hidden="true"></div>
 
     <div class="shell">
-      <!-- ══ LEFT / MAIN COLUMN ══ -->
       <main class="left">
-        <!-- LOGO -->
         <div class="logo-wrap">
           <img
             src="images/LogoImg.png"
@@ -1227,17 +1258,17 @@
           <span class="logo-badge">Early Access</span>
         </div>
 
-        <!-- ── MOBILE HERO ── -->
+        <!-- MOBILE HERO -->
         <div class="mobile-hero" id="mobile-hero-section">
-          <div class="eyebrow">Your neighbourhood, but it works for you</div>
+          <div class="eyebrow">Your neighbourhood, finally working for you</div>
           <h1 class="headline">
             Someone nearby<br />will <span class="hl-fill">do that</span><br />
             <span class="hl-outline">for you.</span>
           </h1>
           <p class="body-text">
-            Whatever's been sitting on your to-do list — post it. Someone close
-            by picks it up and gets paid. And on a slow afternoon? That someone
-            could be you.
+            That thing on your to-do list you keep ignoring — post it, name your
+            price, and someone close by takes it. And when you've got a free
+            afternoon? You're that someone for someone else.
           </p>
           <div class="mobile-phone-wrap">
             <div class="mobile-phone-glow"></div>
@@ -1266,24 +1297,24 @@
           </div>
         </div>
 
-        <!-- ── CONTENT ── -->
+        <!-- DESKTOP + SHARED CONTENT -->
         <div class="mobile-content" id="mobile-content-section">
-          <!-- Desktop hero text (hidden on mobile) -->
+          <!-- Desktop hero text (hidden on mobile via JS + CSS) -->
           <div id="desktop-hero-text">
-            <div class="eyebrow" style="margin-bottom: 12px">
-              Your neighbourhood, but it works for you
+            <div class="eyebrow" style="margin-bottom: clamp(6px, 1vh, 12px)">
+              Your neighbourhood, finally working for you
             </div>
-            <h1 class="headline" style="margin-bottom: 14px">
+            <h1 class="headline" style="margin-bottom: clamp(6px, 1vh, 14px)">
               Someone nearby<br />will <span class="hl-fill">do that</span
               ><br />
               <span class="hl-outline">for you.</span>
             </h1>
-            <p class="body-text" style="margin-bottom: 18px">
-              Whatever's been sitting on your to-do list — post it. Name your
-              price. Someone close by picks it up. Dog walking, furniture
-              shifting, code fixes, tutoring, grocery runs — if you can describe
-              it, it belongs on Barrtar. And on a slow afternoon when you want
-              to earn? You're the someone nearby for someone else.
+            <p class="body-text" style="margin-bottom: clamp(6px, 1vh, 16px)">
+              Stand-in for an iPhone queue, a sharp bargainer at Chor Bazaar,
+              someone to walk your dog while you're stuck in traffic, a warm
+              face to come with you to the hospital — if you can describe it, it
+              belongs on Barrtar. And on a slow afternoon when you want to earn?
+              You're that someone for someone else nearby.
             </p>
           </div>
 
@@ -1309,55 +1340,54 @@
             </div>
           </div>
 
-          <!-- How it works steps -->
-          <div class="steps" role="list" style="margin-bottom: 18px">
+          <!-- Steps -->
+          <div class="steps" role="list">
             <div class="step" role="listitem">
               <div class="sn">1</div>
               <div class="sc">
                 <h4>Think of anything. Post it.</h4>
                 <p>
-                  Bargain for me at Chor Bazaar. Stand in the iPhone queue. Act
-                  in my startup reel. Accompany me to hospital. If you can type
-                  it, someone nearby will take it.
+                  Walk my dog. Stand in that queue. Help me bargain. Come with
+                  me to hospital. If you can type it, someone nearby will take
+                  it.
                 </p>
               </div>
             </div>
             <div class="step" role="listitem">
               <div class="sn">2</div>
               <div class="sc">
-                <h4>Or open the app and start earning.</h4>
+                <h4>Or browse and start earning.</h4>
                 <p>
-                  Browse tasks posted by people around you. Pick what fits your
-                  mood, time, and skills. No commitment, no quota.
+                  See tasks near you. Pick what fits your time and mood. No
+                  minimum hours, no pressure, no quota.
                 </p>
               </div>
             </div>
             <div class="step" role="listitem">
               <div class="sn">3</div>
               <div class="sc">
-                <h4>Doers verify once. That's it.</h4>
+                <h4>Matched smart. Not random.</h4>
                 <p>
-                  Posting a task? Just sign up and go. Earning? A one-time
-                  government ID check keeps the community trustworthy for
-                  everyone.
+                  Skilled tasks reach skilled Doers first. Unskilled goes by
+                  proximity. No one picks it up? It opens to a wider pool — it
+                  always gets done.
                 </p>
               </div>
             </div>
             <div class="step" role="listitem">
               <div class="sn">4</div>
               <div class="sc">
-                <h4>Pay directly. Keep it all.</h4>
+                <h4>Pay directly. Keep every rupee.</h4>
                 <p>
-                  You agreed on a price — that's what gets paid. No service
-                  fees, no platform cuts. Every rupee goes where it should.
+                  The price you agreed is the price paid. No platform cut
+                  sitting in the middle. Ever.
                 </p>
               </div>
             </div>
           </div>
 
-          <!-- ── Trust banners: verification + dispute + inclusive ── -->
-          <div class="trust-banners">
-            <!-- Existing: Verified Doers -->
+          <!-- Trust banners -->
+          <div class="trust-banners" style="margin-top: clamp(6px, 1vh, 14px)">
             <div class="trust-strip">
               <svg
                 width="14"
@@ -1377,53 +1407,26 @@
               Every Doer is real — government ID verified before they accept
               their first task.
             </div>
-
-            <!-- NEW: Dispute resolution -->
-            <div
-              class="dispute-strip"
-              role="note"
-              aria-label="Dispute resolution information"
-            >
+            <div class="dispute-strip" role="note">
               <span class="ds-icon">⚖️</span>
-              <div class="ds-body">
-                <span class="ds-title"
-                  >Fair Dispute Resolution — Built Into the App</span
-                >
-                <span class="ds-desc"
-                  >Task not done right? Payment not received? Both creators and
-                  Doers can raise a dispute on any completed task, directly from
-                  the app. Barrtar reviews both sides and steps in to mediate —
-                  so no one is ever left in the lurch after the work is
-                  done.</span
-                >
-              </div>
+              Task not done right? Both sides can raise a dispute in-app —
+              Barrtar reviews and mediates. No one is left in the lurch.
             </div>
-
-            <!-- NEW: Inclusive earning -->
-            <div
-              class="inclusive-strip"
-              role="note"
-              aria-label="Inclusive earning information"
-            >
+            <div class="inclusive-strip" role="note">
               <span class="is-icon">♿</span>
-              <div class="is-body">
-                <span class="is-title"
-                  >Work for Everyone — Including Specially-Abled Doers</span
-                >
-                <span class="is-desc"
-                  >When posting a task, creators can mark it as specially-abled
-                  friendly. Barrtar's matching system then prioritises
-                  connecting those tasks with Doers who identify as specially
-                  abled — giving everyone in the neighbourhood a genuine shot at
-                  earning on their own terms.</span
-                >
-              </div>
+              Creators can mark tasks as specially-abled friendly — Barrtar
+              prioritises matching them with Doers who identify as specially
+              abled.
             </div>
           </div>
-          <!-- /.trust-banners -->
 
           <!-- Waitlist form -->
-          <form class="waitlist-section" id="waitlist-form" novalidate>
+          <form
+            class="waitlist-section"
+            id="waitlist-form"
+            novalidate
+            style="margin-top: clamp(6px, 1vh, 14px)"
+          >
             <label class="waitlist-label" for="email-input"
               >Get early access — it's free</label
             >
@@ -1463,7 +1466,7 @@
         <!-- /.mobile-content -->
       </main>
 
-      <!-- ══ FOOTER ══ -->
+      <!-- FOOTER -->
       <footer class="footer-strip">
         <span>&copy; 2026 Barrtar. All rights reserved.</span>
         <nav class="footer-links" aria-label="Footer">
@@ -1473,7 +1476,7 @@
         </nav>
       </footer>
 
-      <!-- ══ RIGHT COLUMN (desktop only) ══ -->
+      <!-- RIGHT COLUMN (desktop only) -->
       <div class="right" aria-hidden="true">
         <div class="phone-container">
           <div class="phone-glow"></div>
@@ -1514,29 +1517,20 @@
     </div>
     <!-- /.shell -->
 
-    <!-- Show/hide desktop vs mobile hero text -->
+    <!-- Show/hide desktop vs mobile hero -->
     <script>
       (function () {
-        const isMobile = window.innerWidth <= 860;
-        const desktopText = document.getElementById("desktop-hero-text");
-        const mobileHero = document.getElementById("mobile-hero-section");
-        if (desktopText && mobileHero) {
-          if (isMobile) {
-            desktopText.style.display = "none";
-            mobileHero.style.display = "block";
-          } else {
-            desktopText.style.display = "block";
-            mobileHero.style.display = "none";
-          }
-        }
-        window.addEventListener("resize", function () {
-          const m = window.innerWidth <= 860;
-          if (desktopText) desktopText.style.display = m ? "none" : "block";
-          if (mobileHero) mobileHero.style.display = m ? "block" : "none";
-        });
+        var check = function () {
+          var m = window.innerWidth <= 860;
+          var dt = document.getElementById("desktop-hero-text");
+          var mh = document.getElementById("mobile-hero-section");
+          if (dt) dt.style.display = m ? "none" : "block";
+          if (mh) mh.style.display = m ? "block" : "none";
+        };
+        check();
+        window.addEventListener("resize", check);
       })();
     </script>
-
     <style>
       @media (min-width: 861px) {
         #mobile-hero-section {
@@ -1545,9 +1539,7 @@
         #desktop-hero-text {
           display: block !important;
         }
-        .mobile-phone-wrap {
-          display: none !important;
-        }
+        .mobile-phone-wrap,
         .mobile-tags {
           display: none !important;
         }
