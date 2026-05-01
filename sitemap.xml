@@ -5,11 +5,17 @@
 >
   <url>
     <loc>https://barrtar.com/</loc>
-    <lastmod>2026-02-19</lastmod>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://barrtar.com/images/mobile_new.png</image:loc>
     </image:image>
+  </url>
+  <url>
+    <loc>https://barrtar.com/privacy-policy</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>

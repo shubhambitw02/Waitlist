@@ -1,7 +1,7 @@
 {
   "name": "Barrtar",
   "short_name": "Barrtar",
-  "description": "Barrtar is India's peer-to-peer task marketplace with zero platform fees.",
+  "description": "Barrtar is India's peer-to-peer task marketplace for posting tasks and earning nearby with zero platform fees.",
   "id": "/",
   "start_url": "/",
   "scope": "/",
