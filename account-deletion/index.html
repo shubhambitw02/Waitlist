@@ -14,241 +14,113 @@
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <style>
-      :root {
-        color-scheme: dark;
-        --bg: #0a0a0b;
-        --surface: #111114;
-        --surface-2: #181817;
-        --border: rgba(255, 255, 255, 0.12);
-        --text: #f5f3ea;
-        --muted: #b9b2a3;
-        --accent: #e8ff47;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        margin: 0;
-        min-height: 100vh;
-        background: var(--bg);
-        color: var(--text);
-        font-family:
-          Inter,
-          ui-sans-serif,
-          system-ui,
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          sans-serif;
-        line-height: 1.65;
-      }
-
-      a {
-        color: var(--accent);
-        text-decoration: none;
-      }
-
-      a:hover {
-        text-decoration: underline;
-      }
-
-      .page {
-        width: min(920px, calc(100% - 40px));
-        margin: 0 auto;
-        padding: 32px 0 56px;
-      }
-
-      .header,
-      .footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-      }
-
-      .brand {
-        font-weight: 800;
-        letter-spacing: 0.02em;
-      }
-
-      .nav,
-      .footer-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
-        color: var(--muted);
-      }
-
-      .hero {
-        padding: 72px 0 36px;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .eyebrow {
-        color: var(--accent);
-        font-size: 0.78rem;
-        font-weight: 800;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-      }
-
-      h1 {
-        max-width: 720px;
-        margin: 12px 0 16px;
-        font-size: clamp(2.25rem, 7vw, 4.5rem);
-        line-height: 0.96;
-        letter-spacing: -0.04em;
-      }
-
-      h2 {
-        margin: 0 0 10px;
-        font-size: 1.25rem;
-      }
-
-      p,
-      li {
-        color: var(--muted);
-      }
-
-      .section {
-        padding: 30px 0;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .card {
-        margin-top: 18px;
-        padding: 18px;
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        background: var(--surface);
-      }
-
-      .steps {
-        display: grid;
-        gap: 12px;
-        margin: 18px 0 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .steps li {
-        padding: 14px 16px;
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        background: var(--surface-2);
-      }
-
-      .footer {
-        padding-top: 28px;
-        color: var(--muted);
-        font-size: 0.95rem;
-      }
-
-      @media (max-width: 640px) {
-        .header,
-        .footer {
-          align-items: flex-start;
-          flex-direction: column;
-        }
-
-        .page {
-          width: min(100% - 28px, 920px);
-        }
-      }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/page.css" />
   </head>
   <body>
-    <div class="page">
-      <header class="header">
-        <a class="brand" href="/">Barrtar</a>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Barrtar home">
+          <span class="brand-mark"><img src="/apple-touch-icon.png" alt="" /></span>
+          <span>Barrtar</span>
+        </a>
         <nav class="nav" aria-label="Primary">
           <a href="/privacy-policy">Privacy</a>
           <a href="/terms">Terms</a>
           <a href="/community-guidelines">Guidelines</a>
+          <a href="/contact">Contact</a>
         </nav>
       </header>
 
       <main>
-        <section class="hero">
+        <section class="content-hero">
           <div class="eyebrow">Account deletion</div>
           <h1>Delete your Barrtar account and eligible personal data.</h1>
-          <p>
-            You can request deletion from inside the Barrtar app or by
-            contacting support from the email or phone number linked to your
-            account.
+          <p class="lead">
+            You can request deletion from inside the Barrtar app. If you cannot
+            access the app, contact support from the phone or email context
+            linked to your account so we can verify ownership.
           </p>
-        </section>
-
-        <section class="section">
-          <h2>How to request deletion</h2>
-          <ol class="steps">
-            <li>
-              Open Barrtar and go to Profile, then Privacy and account, then
-              request account deletion.
-            </li>
-            <li>
-              If you cannot access the app, email
-              <a href="mailto:support@barrtar.com">support@barrtar.com</a>
-              with the subject "Account deletion request" from your registered
-              email or include the phone number linked to the account.
-            </li>
-            <li>
-              We may verify that the request came from the account owner before
-              deleting or deactivating the account.
-            </li>
-          </ol>
-        </section>
-
-        <section class="section">
-          <h2>What gets deleted</h2>
-          <p>
-            Eligible account and profile data, saved preferences, and personal
-            data connected to your Barrtar account are deleted or anonymized
-            after verification, unless retention is needed for the reasons
-            below.
-          </p>
-          <div class="card">
-            <strong>Active tasks and disputes</strong>
-            <p>
-              If your account has active tasks, open disputes, safety reports,
-              or unresolved support cases, we may ask you to close those matters
-              before deletion is completed.
-            </p>
+          <div class="meta-row">
+            <span class="meta-pill">Last updated: June 2, 2026</span>
+            <span class="meta-pill">Current app flow: 24-hour pending period</span>
           </div>
         </section>
 
-        <section class="section">
-          <h2>What may be retained</h2>
-          <p>
-            Barrtar may retain limited records where needed for legal
-            obligations, safety, fraud prevention, dispute resolution,
-            enforcement of our terms, audit logs, or legitimate business
-            records. Retained records are kept only as long as needed for those
-            purposes.
-          </p>
-        </section>
+        <div class="content-grid">
+          <section class="section light">
+            <h2>How to request deletion</h2>
+            <ol class="steps-list">
+              <li>
+                <span class="step-number">1</span>
+                <span>Open Barrtar and go to Profile, then Privacy and account.</span>
+              </li>
+              <li>
+                <span class="step-number">2</span>
+                <span>Choose account deletion and confirm the request.</span>
+              </li>
+              <li>
+                <span class="step-number">3</span>
+                <span>
+                  If you cannot access the app, email
+                  <a class="text-link" href="mailto:support@barrtar.com">support@barrtar.com</a>
+                  with the subject "Account deletion request".
+                </span>
+              </li>
+            </ol>
+          </section>
 
-        <section class="section">
-          <h2>Timing</h2>
-          <p>
-            We aim to respond within 7 days and complete eligible deletion
-            within 30 days after verification, unless a longer period is
-            required for legal, safety, fraud-prevention, or dispute reasons.
-          </p>
-        </section>
+          <section class="section">
+            <h2>What happens after you request deletion</h2>
+            <p>
+              Barrtar disables the account immediately and schedules eligible
+              deletion for completion after a 24-hour pending period. During
+              that period, you can restore the account before deletion is
+              completed.
+            </p>
+            <div class="note warning">
+              If there is an unresolved dispute, abuse report, active assigned
+              task, active created task, legal request, or evidence preservation
+              need, deletion may be paused under a legal or safety hold.
+            </div>
+          </section>
 
-        <section class="section">
-          <h2>Questions</h2>
-          <p>
-            Contact
-            <a href="mailto:support@barrtar.com">support@barrtar.com</a>
-            for account deletion, privacy, or data access questions.
-          </p>
-          <p>Last updated: May 8, 2026</p>
-        </section>
+          <section class="section">
+            <h2>What gets deleted or anonymized</h2>
+            <p>
+              Eligible account, profile, saved preference, session, device,
+              task-facing personal, and privacy-request data may be deleted or
+              anonymized after the pending period, subject to safety, legal,
+              dispute, fraud-prevention, and audit requirements.
+            </p>
+          </section>
+
+          <section class="section light">
+            <h2>What may be retained</h2>
+            <p>
+              Barrtar may retain limited records needed for legal obligations,
+              safety investigations, unresolved disputes, abuse prevention,
+              audit logs, support history, evidence preservation, or legitimate
+              business records. Retained records are limited to the purpose that
+              requires retention.
+            </p>
+          </section>
+
+          <section class="section">
+            <h2>Questions</h2>
+            <p>
+              Contact
+              <a class="text-link" href="mailto:support@barrtar.com">support@barrtar.com</a>
+              for account deletion, restoration, privacy, or data access
+              questions.
+            </p>
+          </section>
+        </div>
       </main>
 
       <footer class="footer">
@@ -258,6 +130,7 @@
           <a href="/privacy-policy">Privacy</a>
           <a href="/terms">Terms</a>
           <a href="/community-guidelines">Guidelines</a>
+          <a href="/contact">Contact</a>
         </div>
       </footer>
     </div>
