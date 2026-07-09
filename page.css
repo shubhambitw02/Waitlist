@@ -28,6 +28,7 @@
  /* Brand accents */
  --accent: #FFD400;
  --accent-strong: #E6BF00;
+ --accent-strong-hover: #CFA900;
  --accent-ink: #0a0a0b;
  --accent-blue: #47d9ff;
  --accent-violet: #b493ff;
@@ -63,19 +64,27 @@
 
 html {
  min-height: 100%;
+ background: var(--bg);
  scroll-behavior: smooth;
 }
 
 ::selection {
- background: rgba(232, 255, 71, 0.28);
- color: var(--text);
+ background: rgba(255, 212, 0, 0.44);
+ color: var(--accent-ink);
+ text-shadow: none;
+}
+
+::-moz-selection {
+ background: rgba(255, 212, 0, 0.44);
+ color: var(--accent-ink);
+ text-shadow: none;
 }
 
 body {
  margin: 0;
  min-height: 100vh;
  background:
-  radial-gradient(circle at 10% -6%, rgba(232, 255, 71, 0.08), transparent 34rem),
+  radial-gradient(circle at 10% -6%, rgba(255, 212, 0, 0.08), transparent 34rem),
   radial-gradient(circle at 90% 10%, rgba(71, 217, 255, 0.07), transparent 32rem),
   var(--bg);
  color: var(--text);
@@ -283,6 +292,9 @@ body.nav-open .mobile-menu {
  text-decoration: none;
  border: 1px solid transparent;
  cursor: pointer;
+ min-height: 48px;
+ min-inline-size: 148px;
+ box-sizing: border-box;
  transition:
   transform 0.25s var(--ease),
   box-shadow 0.25s var(--ease),
@@ -299,13 +311,13 @@ body.nav-open .mobile-menu {
 .btn-primary {
  background: var(--accent);
  color: var(--accent-ink);
- box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4) inset, 0 14px 34px rgba(232, 255, 71, 0.16);
+ box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4) inset, 0 14px 34px rgba(255, 212, 0, 0.16);
 }
 
 .btn-primary:hover {
  background: var(--accent-strong);
  transform: translateY(-2px);
- box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 18px 44px rgba(232, 255, 71, 0.22);
+ box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 18px 44px rgba(255, 212, 0, 0.22);
 }
 
 .btn-secondary {
@@ -329,7 +341,7 @@ body.nav-open .mobile-menu {
 }
 
 .btn-ghost:hover {
- border-color: rgba(232, 255, 71, 0.4);
+ border-color: rgba(255, 212, 0, 0.4);
  color: var(--accent);
 }
 
@@ -343,7 +355,8 @@ body.nav-open .mobile-menu {
  align-items: center;
  justify-content: center;
  width: min(220px, 100%);
- min-height: 76px;
+ aspect-ratio: 646 / 250;
+ min-height: 0;
  padding: 0;
  border: none;
  background: transparent;
@@ -360,7 +373,8 @@ body.nav-open .mobile-menu {
 .btn-store img {
  display: block;
  width: 100%;
- height: auto;
+ height: 100%;
+ object-fit: contain;
 }
 
 /* --------------------------------------------------------------------------
@@ -482,8 +496,8 @@ li {
  gap: 8px;
  padding: 8px 14px;
  border-radius: 999px;
- border: 1px solid rgba(232, 255, 71, 0.22);
- background: rgba(232, 255, 71, 0.08);
+ border: 1px solid rgba(255, 212, 0, 0.22);
+ background: rgba(255, 212, 0, 0.08);
  color: var(--accent);
  font-size: 0.86rem;
  font-weight: 700;
@@ -610,6 +624,52 @@ li {
  background: #fff;
 }
 
+
+/* Explicit contrast rules for light surfaces */
+.section.light,
+.surface-light,
+.card.light,
+.light .card,
+.form-card,
+.faq-item.light {
+ color: var(--ink);
+}
+
+.section.light :where(h1, h2, h3, h4, p, li, span, small, strong, em, label),
+.surface-light :where(h1, h2, h3, h4, p, li, span, small, strong, em, label),
+.card.light :where(h1, h2, h3, h4, p, li, span, small, strong, em, label),
+.light .card :where(h1, h2, h3, h4, p, li, span, small, strong, em, label),
+.form-card :where(h1, h2, h3, h4, p, li, span, small, strong, em, label),
+.faq-item.light :where(h1, h2, h3, h4, p, li, span, small, strong, em, label) {
+ color: var(--ink);
+}
+
+.section.light :where(.muted, .lead, .notify-status),
+.surface-light :where(.muted, .lead, .notify-status),
+.card.light :where(.muted, .lead, .notify-status),
+.light .card :where(.muted, .lead, .notify-status),
+.form-card :where(.muted, .lead, .notify-status),
+.faq-item.light :where(.muted, .lead, .notify-status) {
+ color: var(--ink-muted);
+}
+
+.section.light .eyebrow,
+.surface-light .eyebrow,
+.card.light .eyebrow,
+.light .card .eyebrow,
+.form-card .eyebrow {
+ color: #7a6200;
+}
+
+.section.light a:not(.btn),
+.surface-light a:not(.btn),
+.card.light a:not(.btn),
+.light .card a:not(.btn),
+.form-card a:not(.btn) {
+ color: var(--ink);
+ text-decoration-color: rgba(18, 19, 22, 0.35);
+}
+
 /* Feature cards (icon + title + copy) */
 .feature-grid {
  display: grid;
@@ -631,7 +691,7 @@ li {
 
 .feature-card:hover {
  transform: translateY(-5px);
- border-color: rgba(232, 255, 71, 0.3);
+ border-color: rgba(255, 212, 0, 0.3);
  box-shadow: var(--shadow-sm);
 }
 
@@ -641,8 +701,8 @@ li {
  border-radius: 13px;
  display: grid;
  place-items: center;
- background: rgba(232, 255, 71, 0.1);
- border: 1px solid rgba(232, 255, 71, 0.2);
+ background: rgba(255, 212, 0, 0.1);
+ border: 1px solid rgba(255, 212, 0, 0.2);
  color: var(--accent);
  margin-bottom: 16px;
 }
@@ -909,7 +969,7 @@ li {
 }
 
 .faq-item.is-open {
- border-color: rgba(232, 255, 71, 0.35);
+ border-color: rgba(255, 212, 0, 0.35);
 }
 
 .faq-question {
@@ -995,18 +1055,16 @@ li {
 }
 
 .note.warning {
- border-color: rgba(232, 255, 71, 0.24);
- background: rgba(232, 255, 71, 0.08);
+ border-color: rgba(255, 212, 0, 0.24);
+ background: rgba(255, 212, 0, 0.08);
  color: var(--accent);
 }
 
 /* --------------------------------------------------------------------------
   Reveal-on-scroll
-  Safe-by-default: content is fully visible unless a tiny inline script
-  (in <head>) has already confirmed JS is running by swapping the <html>
-  class from "no-js" to "js". That way, if JavaScript is blocked, slow,
-  or unsupported (older WebViews, some in-app browsers, crawlers), every
-  section still renders normally instead of staying invisible.
+  First-paint safe: content stays visible on hard refresh and slow networks.
+  The JS observer may still add is-visible for compatibility, but it no
+  longer hides sections before JavaScript runs. This removes full-page flicker.
   -------------------------------------------------------------------------- */
 
 .reveal {
@@ -1014,15 +1072,11 @@ li {
  transform: none;
 }
 
-.js .reveal {
- opacity: 0;
- transform: translateY(18px);
- transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
-}
-
+.js .reveal,
 .js .reveal.is-visible {
  opacity: 1;
- transform: translateY(0);
+ transform: none;
+ transition: none;
 }
 
 .reveal-stagger > * {
@@ -1210,6 +1264,31 @@ li {
 }
 
 
+
+/* Stable CTA rows */
+.hero-ctas {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ gap: 14px;
+ margin-top: 6px;
+}
+
+.hero-ctas .btn {
+ flex: 0 0 auto;
+ min-inline-size: 188px;
+}
+
+.site-actions .btn {
+ min-inline-size: 116px;
+}
+
+.form-row button,
+.waitlist-form button {
+ min-inline-size: 178px;
+ box-sizing: border-box;
+}
+
 /* --------------------------------------------------------------------------
   Barrtar relaunch additions: decision flow, task examples, download page
   -------------------------------------------------------------------------- */
@@ -1242,8 +1321,8 @@ li {
  height: 52px;
  margin-bottom: 16px;
  border-radius: 16px;
- background: rgba(232, 255, 71, 0.1);
- border: 1px solid rgba(232, 255, 71, 0.2);
+ background: rgba(255, 212, 0, 0.1);
+ border: 1px solid rgba(255, 212, 0, 0.2);
  font-size: 1.4rem;
 }
 
@@ -1351,9 +1430,11 @@ li {
  .hero-ctas .btn,
  .form-row button {
   width: 100%;
+  min-inline-size: 0;
  }
 
  .hero-ctas .btn-store {
   width: min(220px, 100%);
+  align-self: center;
  }
 }

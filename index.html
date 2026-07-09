@@ -4,7 +4,7 @@
   <script>document.documentElement.classList.replace("no-js", "js");</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Barrtar is a local task app available in Borivali, Mumbai. Post safe local tasks, find nearby help, or earn by helping people around you. Android live, iOS coming soon." />
+  <meta name="description" content="Barrtar is a local task app available in Mira Road, Dahisar, and Borivali. Post safe local tasks, find nearby help, or earn by helping people around you. Android live, iOS coming soon." />
   <meta
    name="robots"
    content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"
@@ -17,7 +17,7 @@
   <meta name="application-name" content="Barrtar" />
   <meta name="apple-mobile-web-app-title" content="Barrtar" />
   <meta name="author" content="Barrtar" />
-  <title>Barrtar: Local Tasks &amp; Nearby Work in Borivali</title>
+  <title>Barrtar: Local Tasks &amp; Nearby Work in Mira Road, Dahisar & Borivali</title>
   <link rel="canonical" href="https://barrtar.com/" />
   <link rel="alternate" href="https://barrtar.com/" hreflang="en-IN" />
   <link rel="alternate" href="https://barrtar.com/" hreflang="x-default" />
@@ -26,8 +26,8 @@
   <meta property="og:site_name" content="Barrtar" />
   <meta property="og:locale" content="en_IN" />
   <meta property="og:url" content="https://barrtar.com/" />
-  <meta property="og:title" content="Barrtar: Local Tasks & Nearby Work in Borivali" />
-  <meta property="og:description" content="Post safe local tasks, find nearby help, or earn by helping others in Borivali, Mumbai. Android live, iOS coming soon." />
+  <meta property="og:title" content="Barrtar: Local Tasks & Nearby Work in Mira Road, Dahisar & Borivali" />
+  <meta property="og:description" content="Post safe local tasks, find nearby help, or earn by helping others in Mira Road, Dahisar, and Borivali. Android live, iOS coming soon." />
   <meta
    property="og:image"
    content="https://barrtar.com/images/barrtar-showcase-v2.png"
@@ -45,8 +45,8 @@
   />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Barrtar: Local Tasks & Nearby Work in Borivali" />
-  <meta name="twitter:description" content="Post safe local tasks, find nearby help, or earn by helping others in Borivali, Mumbai. Android live, iOS coming soon." />
+  <meta name="twitter:title" content="Barrtar: Local Tasks & Nearby Work in Mira Road, Dahisar & Borivali" />
+  <meta name="twitter:description" content="Post safe local tasks, find nearby help, or earn by helping others in Mira Road, Dahisar, and Borivali. Android live, iOS coming soon." />
   <meta
    name="twitter:image"
    content="https://barrtar.com/images/barrtar-showcase-v2.png"
@@ -65,10 +65,106 @@
   <link rel="manifest" href="site.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-   href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=JetBrains+Mono:wght@400;500;700&display=swap"
-   rel="stylesheet"
-  />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=JetBrains+Mono:wght@400;500;700&display=optional" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=JetBrains+Mono:wght@400;500;700&display=optional" rel="stylesheet" /></noscript>
+  <style id="critical-shell">
+  :root {
+   --bg: #0a0a0b;
+   --ink: #f8f5ee;
+   --accent: #FFD400;
+   --accent-strong: #E6BF00;
+   --accent-ink: #0a0a0b;
+   --selection-bg: rgba(255, 212, 0, 0.44);
+   --selection-ink: #0a0a0b;
+  }
+  html {
+   min-height: 100%;
+   background: var(--bg);
+   scroll-behavior: smooth;
+  }
+  body {
+   margin: 0;
+   min-height: 100vh;
+   background: var(--bg);
+   color: var(--ink);
+   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+   -webkit-font-smoothing: antialiased;
+   text-rendering: optimizeLegibility;
+  }
+  .site-header { min-height: 72px; }
+  .topbar {
+   min-height: 72px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+  }
+  .page-shell {
+   width: min(1120px, calc(100% - 40px));
+   margin-inline: auto;
+  }
+  img {
+   max-width: 100%;
+   height: auto;
+   display: block;
+  }
+  .btn {
+   min-height: 48px;
+   min-inline-size: 148px;
+   box-sizing: border-box;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   white-space: nowrap;
+  }
+  .hero-ctas {
+   display: flex;
+   flex-wrap: wrap;
+   align-items: center;
+   gap: 12px;
+  }
+  .hero-ctas .btn { min-inline-size: 188px; }
+  .btn-store {
+   width: min(220px, 100%);
+   aspect-ratio: 646 / 250;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+  }
+  .btn-store img {
+   width: 100%;
+   height: 100%;
+   object-fit: contain;
+  }
+  .section.light {
+   background: #f6f3ea;
+   color: #17130a;
+  }
+  ::selection {
+   background: var(--selection-bg);
+   color: var(--selection-ink);
+   text-shadow: none;
+  }
+  ::-moz-selection {
+   background: var(--selection-bg);
+   color: var(--selection-ink);
+   text-shadow: none;
+  }
+  @media (max-width: 560px) {
+   .hero-ctas {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+   }
+   .hero-ctas .btn {
+    width: 100%;
+    min-inline-size: 0;
+   }
+   .hero-ctas .btn-store {
+    width: min(220px, 100%);
+    align-self: center;
+   }
+  }
+ </style>
   <link rel="stylesheet" href="page.css" />
 
   <script type="application/ld+json">
@@ -92,14 +188,18 @@
        "width": 512,
        "height": 512
       },
-      "description": "Barrtar is a peer-to-peer local task marketplace, live on Android in Borivali, Mumbai, where people can post everyday local tasks or pick them up and earn nearby.",
+      "description": "Barrtar is a peer-to-peer local task marketplace, live on Android in Mira Road, Dahisar, and Borivali, where people can post everyday local tasks or pick them up and earn nearby.",
       "contactPoint": [
        {
         "@type": "ContactPoint",
         "contactType": "customer support",
         "email": "support@barrtar.com",
         "url": "https://barrtar.com/contact/",
-        "areaServed": "IN",
+        "areaServed": [
+       { "@type": "Place", "name": "Mira Road" },
+       { "@type": "Place", "name": "Dahisar" },
+       { "@type": "Place", "name": "Borivali" }
+      ],
         "availableLanguage": ["en-IN"]
        }
       ]
@@ -118,7 +218,7 @@
       "@id": "https://barrtar.com/#webpage",
       "url": "https://barrtar.com/",
       "name": "Barrtar: Get Help, Earn Nearby",
-      "description": "Post local tasks, find nearby help, or earn by helping others. Barrtar is live on Android in Borivali, Mumbai.",
+      "description": "Post local tasks, find nearby help, or earn by helping others. Barrtar is live on Android in Mira Road, Dahisar, and Borivali.",
       "isPartOf": { "@id": "https://barrtar.com/#website" },
       "about": { "@id": "https://barrtar.com/#organization" },
       "inLanguage": "en-IN"
@@ -129,10 +229,14 @@
       "name": "Barrtar",
       "applicationCategory": "LifestyleApplication",
       "operatingSystem": "Android",
-      "areaServed": "IN",
+      "areaServed": [
+       { "@type": "Place", "name": "Mira Road" },
+       { "@type": "Place", "name": "Dahisar" },
+       { "@type": "Place", "name": "Borivali" }
+      ],
       "url": "https://barrtar.com/download/",
       "downloadUrl": "https://play.google.com/store/apps/details?id=com.barrtar.app",
-      "description": "Post everyday local tasks and find help nearby, or pick up nearby tasks and earn — live on Android in Borivali, Mumbai, 7:00 AM to 12:30 AM daily.",
+      "description": "Post everyday local tasks and find help nearby, or pick up nearby tasks and earn — live on Android in Mira Road, Dahisar, and Borivali, 7:00 AM to 12:30 AM daily.",
       "image": "https://barrtar.com/web-app-manifest-512x512.png",
       "offers": {
        "@type": "Offer",
@@ -150,7 +254,7 @@
         "name": "Where is Barrtar available now?",
         "acceptedAnswer": {
          "@type": "Answer",
-         "text": "Barrtar is live on Android in Borivali, Mumbai. If you're outside the current area or use iPhone, you can join the waitlist from the download page."
+         "text": "Barrtar is live on Android in Mira Road, Dahisar, and Borivali. If you're outside the current area or use iPhone, you can join the waitlist from the download page."
         }
        },
        {
@@ -224,7 +328,7 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
-    animation: heroIn 0.9s var(--ease) both;
+    animation: none;
    }
 
    @keyframes heroIn {
@@ -311,7 +415,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    border: 1px solid rgba(232, 255, 71, 0.14);
+    border: 1px solid rgba(255, 212, 0, 0.14);
     border-radius: 50%;
     transform: translate(-50%, -50%);
    }
@@ -342,7 +446,7 @@
     background: conic-gradient(
      from 0deg,
      transparent 0deg,
-     rgba(232, 255, 71, 0.16) 26deg,
+     rgba(255, 212, 0, 0.16) 26deg,
      transparent 52deg
     );
     animation: radarSpin 5.5s linear infinite;
@@ -360,7 +464,7 @@
     height: 9px;
     border-radius: 50%;
     background: var(--accent);
-    box-shadow: 0 0 0 0 rgba(232, 255, 71, 0.5);
+    box-shadow: 0 0 0 0 rgba(255, 212, 0, 0.5);
     animation: pulseDot 2.6s ease-out infinite;
    }
 
@@ -393,13 +497,13 @@
 
    @keyframes pulseDot {
     0% {
-     box-shadow: 0 0 0 0 rgba(232, 255, 71, 0.45);
+     box-shadow: 0 0 0 0 rgba(255, 212, 0, 0.45);
     }
     70% {
-     box-shadow: 0 0 0 16px rgba(232, 255, 71, 0);
+     box-shadow: 0 0 0 16px rgba(255, 212, 0, 0);
     }
     100% {
-     box-shadow: 0 0 0 0 rgba(232, 255, 71, 0);
+     box-shadow: 0 0 0 0 rgba(255, 212, 0, 0);
     }
    }
    @keyframes pulseDotBlue {
@@ -420,7 +524,7 @@
     height: 440px;
     background: radial-gradient(
      ellipse,
-     rgba(232, 255, 71, 0.14) 0%,
+     rgba(255, 212, 0, 0.14) 0%,
      rgba(71, 217, 255, 0.06) 45%,
      transparent 70%
     );
@@ -452,7 +556,7 @@
     display: block;
     border-radius: 36px;
     filter: drop-shadow(0 32px 64px rgba(0, 0, 0, 0.85))
-     drop-shadow(0 0 28px rgba(232, 255, 71, 0.08));
+     drop-shadow(0 0 28px rgba(255, 212, 0, 0.08));
     animation: float 6s ease-in-out infinite;
    }
 
@@ -561,7 +665,7 @@
     padding: 26px;
     border-radius: var(--r-lg);
     border: 1px solid var(--line);
-    background: linear-gradient(160deg, rgba(232, 255, 71, 0.07), rgba(255, 255, 255, 0.02));
+    background: linear-gradient(160deg, rgba(255, 212, 0, 0.07), rgba(255, 255, 255, 0.02));
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -585,8 +689,8 @@
     transition: border-color 0.22s, box-shadow 0.22s;
    }
    .form-row:focus-within {
-    border-color: rgba(232, 255, 71, 0.45);
-    box-shadow: 0 0 0 3px rgba(232, 255, 71, 0.08);
+    border-color: rgba(255, 212, 0, 0.45);
+    box-shadow: 0 0 0 3px rgba(255, 212, 0, 0.08);
    }
    .form-row.is-error {
     border-color: rgba(255, 120, 120, 0.65);
@@ -635,7 +739,7 @@
     color: #111;
    }
    .form-row button.is-success {
-    background: rgba(232, 255, 71, 0.12);
+    background: rgba(255, 212, 0, 0.12);
     color: var(--accent);
    }
    .form-row button:disabled {
@@ -665,7 +769,7 @@
     border-radius: var(--r-xl);
     border: 1px solid var(--line);
     background:
-     radial-gradient(circle at 15% 0%, rgba(232, 255, 71, 0.14), transparent 60%),
+     radial-gradient(circle at 15% 0%, rgba(255, 212, 0, 0.14), transparent 60%),
      radial-gradient(circle at 85% 100%, rgba(71, 217, 255, 0.1), transparent 55%),
      rgba(17, 17, 20, 0.92);
     text-align: center;
@@ -699,11 +803,11 @@
     position: fixed;
     width: 38px;
     height: 38px;
-    border: 2px solid rgba(232, 255, 71, 0.8);
+    border: 2px solid rgba(255, 212, 0, 0.8);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9998;
-    box-shadow: 0 0 12px rgba(232, 255, 71, 0.28);
+    box-shadow: 0 0 12px rgba(255, 212, 0, 0.28);
     transform: translate(-50%, -50%);
     transition: width 0.28s ease, height 0.28s ease, opacity 0.28s ease;
    }
@@ -794,20 +898,20 @@
    <!-- ============ HERO ============ -->
    <section class="hero" id="top">
     <div class="hero-copy">
-     <span class="badge-live">Live now · Borivali, Mumbai · Android</span>
+     <span class="badge-live">Live now · Mira Road · Dahisar · Borivali · Android</span>
      <div class="eyebrow">Barrtar karo!</div>
-     <h1>Get local tasks done. Earn nearby in Borivali.</h1>
+     <h1>Get local tasks done. Earn nearby.</h1>
      <p class="hero-line-2">Post a task when you need help, or accept nearby work when you want to earn.</p>
      <p class="lead">
       Barrtar is a local task app for safe, legal everyday help — now
-      available on Android in Borivali, Mumbai. iOS is coming soon.
+      available on Android in Mira Road, Dahisar, and Borivali. iOS is coming soon.
      </p>
      <div class="hero-ctas">
       <a class="btn btn-primary" href="/download/">Download Barrtar</a>
-      <a class="btn btn-secondary" href="/how-it-works/">How Barrtar works</a>
+      <a class="btn btn-primary" href="/download/#ios-waitlist">Join iOS waitlist</a>
      </div>
      <div class="trust-microrow">
-      <span>Available in Borivali</span>
+      <span>Available in Mira Road, Dahisar & Borivali</span>
       <span>Safe, legal tasks only</span>
       <span>18+ only</span>
       <span>₹0 platform fee</span>
@@ -866,8 +970,8 @@
    <!-- ============ FACT STRIP ============ -->
    <div class="fact-strip reveal">
     <div class="fact">
-     <strong class="mono">Borivali</strong>
-     <span>Available in Borivali, Mumbai</span>
+     <strong class="mono">Mira Road · Dahisar · Borivali</strong>
+     <span>Available across Mira Road, Dahisar, and Borivali</span>
     </div>
     <div class="fact">
      <strong class="mono">18+</strong>
@@ -1117,16 +1221,16 @@
     <div class="section-head reveal">
      <div>
       <div class="eyebrow">Where Barrtar works</div>
-      <h2>Now live in Borivali, Mumbai.</h2>
+      <h2>Now live in Mira Road, Dahisar, and Borivali.</h2>
       <p class="lead">Barrtar is starting focused so the marketplace feels reliable, local, and understandable before expanding area by area.</p>
      </div>
     </div>
 
     <div class="areas-split reveal">
      <div class="areas-card">
-      <span class="badge-live" style="width: fit-content">Available in Borivali</span>
+      <span class="badge-live" style="width: fit-content">Available in Mira Road, Dahisar & Borivali</span>
       <p style="margin: 0; color: var(--text-soft)">
-       Android users in Borivali can download Barrtar now to post safe local tasks, find nearby help, or earn from nearby work.
+       Android users in Mira Road, Dahisar, and Borivali can download Barrtar now to post safe local tasks, find nearby help, or earn from nearby work.
       </p>
       <a class="btn btn-primary" style="width: fit-content" href="/download/">Download Barrtar</a>
      </div>
@@ -1171,7 +1275,7 @@
        Where is Barrtar available now?
        <span class="faq-icon">+</span>
       </button>
-      <div class="faq-answer"><div class="faq-answer-inner"><p>Barrtar is live on Android in Borivali, Mumbai. If you use iPhone or are outside the current area, join the waitlist from the download page.</p></div></div>
+      <div class="faq-answer"><div class="faq-answer-inner"><p>Barrtar is live on Android in Mira Road, Dahisar, and Borivali. If you use iPhone or are outside the current area, join the waitlist from the download page.</p></div></div>
      </div>
      <div class="faq-item" data-exclusive="true">
       <button class="faq-question" aria-expanded="false">
@@ -1208,7 +1312,7 @@
    <div class="cta-banner reveal" style="margin-top: 72px">
     <div class="eyebrow">Start with clarity</div>
     <h2>Need help or want nearby work?</h2>
-    <p class="lead" style="text-align: center">Download Barrtar on Android. Available in Borivali, Mumbai. iOS coming soon.</p>
+    <p class="lead" style="text-align: center">Download Barrtar on Android. Available in Mira Road, Dahisar, and Borivali. iOS coming soon.</p>
     <div class="hero-ctas">
      <a class="btn btn-primary" href="/download/">Download Barrtar</a>
      <a class="btn btn-secondary" href="/faq/">Read FAQs</a>
@@ -1224,7 +1328,7 @@
        <span class="brand-mark"><img src="apple-touch-icon.png" alt="" /></span>
        <span>Barrtar</span>
       </a>
-      <p>Barrtar karo! Post safe local tasks, find nearby help, or earn by helping others — now live on Android in Borivali, Mumbai.</p>
+      <p>Barrtar karo! Post safe local tasks, find nearby help, or earn by helping others — now live on Android in Mira Road, Dahisar, and Borivali.</p>
      </div>
      <div class="footer-col">
       <h4>Product</h4>
@@ -1254,7 +1358,7 @@
     </div>
     <div class="footer-bottom">
      <span>&copy; 2026 Barrtar. All rights reserved.</span>
-     <span class="mono">Available in Borivali · Android live · iOS coming soon</span>
+     <span class="mono">Available in Mira Road · Dahisar · Borivali · Android live · iOS coming soon</span>
     </div>
    </div>
   </footer>
