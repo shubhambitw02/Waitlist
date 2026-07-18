@@ -1,0 +1,13 @@
+{
+  "name": "barrtar-waitlist-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "serve": "node scripts/serve-static.mjs",
+    "test:e2e": "playwright test",
+    "test:e2e:install": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.51.1"
+  }
+}
