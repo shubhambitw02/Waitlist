@@ -934,6 +934,9 @@ li {
  background: var(--bg-soft);
  padding: 22px 20px;
  text-align: center;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
 }
 
 .fact strong {
