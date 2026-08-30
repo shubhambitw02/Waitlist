@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en-IN" class="no-js">
  <head>
   <script>document.documentElement.classList.replace("no-js", "js");</script>
@@ -171,11 +171,14 @@
    {
     "@context": "https://schema.org",
     "@graph": [
-     {
+    {
       "@type": "Organization",
       "@id": "https://barrtar.com/#organization",
       "name": "Barrtar",
       "url": "https://barrtar.com/",
+      "sameAs": [
+        "https://www.instagram.com/barrtarapp/"
+      ],
       "logo": {
        "@type": "ImageObject",
        "url": "https://barrtar.com/web-app-manifest-512x512.png",
@@ -226,25 +229,27 @@
      {
       "@type": "MobileApplication",
       "@id": "https://barrtar.com/#app",
-      "name": "Barrtar",
+      "name": "Barrtar: Get Help, Earn Nearby",
+      "alternateName": "Barrtar",
       "applicationCategory": "LifestyleApplication",
       "operatingSystem": "Android",
       "areaServed": [
-       { "@type": "Place", "name": "Borivali" },
-       { "@type": "Place", "name": "Dahisar" },
-       { "@type": "Place", "name": "Mira Road" }
+        { "@type": "Place", "name": "Borivali" },
+        { "@type": "Place", "name": "Dahisar" },
+        { "@type": "Place", "name": "Mira Road" }
       ],
       "url": "https://barrtar.com/download/",
-      "downloadUrl": "https://play.google.com/store/apps/details?id=com.barrtar.app",
+      "installUrl": "https://play.google.com/store/apps/details?id=com.barrtar.app",
+      "sameAs": "https://play.google.com/store/apps/details?id=com.barrtar.app",
       "description": "Post everyday local tasks and find help nearby, or pick up nearby tasks and earn — live on Android in Borivali, Dahisar, and Mira Road, 7:00 AM to 12:30 AM daily.",
       "image": "https://barrtar.com/web-app-manifest-512x512.png",
       "offers": {
-       "@type": "Offer",
-       "price": "0",
-       "priceCurrency": "INR"
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
       },
       "publisher": { "@id": "https://barrtar.com/#organization" }
-     },
+    },
      {
       "@type": "FAQPage",
       "@id": "https://barrtar.com/#faq-teaser",
@@ -1333,12 +1338,13 @@
      <div class="footer-col">
       <h4>Product</h4>
       <ul>
-       <li><a href="/download/">Download</a></li>
-       <li><a href="/how-it-works/">How it works</a></li>
-       <li><a href="/#features">Task use cases</a></li>
-       <li><a href="/faq/">FAQ</a></li>
+        <li><a href="/download/">Download</a></li>
+        <li><a href="https://play.google.com/store/apps/details?id=com.barrtar.app">Barrtar on Google Play</a></li>
+        <li><a href="/how-it-works/">How it works</a></li>
+        <li><a href="/#features">Task use cases</a></li>
+        <li><a href="/faq/">FAQ</a></li>
       </ul>
-     </div>
+    </div>
      <div class="footer-col">
       <h4>Trust</h4>
       <ul>

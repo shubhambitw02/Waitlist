@@ -129,32 +129,39 @@
  </style>
   <link rel="stylesheet" href="../page.css" />
   <script type="application/ld+json">
-   {
+    {
     "@context": "https://schema.org",
     "@type": "MobileApplication",
-    "name": "Barrtar",
+    "@id": "https://barrtar.com/#app",
+    "name": "Barrtar: Get Help, Earn Nearby",
+    "alternateName": "Barrtar",
     "applicationCategory": "LifestyleApplication",
     "operatingSystem": "Android",
     "url": "https://barrtar.com/download/",
-    "downloadUrl": "https://play.google.com/store/apps/details?id=com.barrtar.app",
+    "installUrl": "https://play.google.com/store/apps/details?id=com.barrtar.app",
+    "sameAs": "https://play.google.com/store/apps/details?id=com.barrtar.app",
     "description": "Download Barrtar on Android. Barrtar is available in Borivali, Dahisar, and Mira Road for safe, legal local tasks, nearby help, and local earning. iOS coming soon.",
     "areaServed": [
-     { "@type": "Place", "name": "Borivali" },
-     { "@type": "Place", "name": "Dahisar" },
-     { "@type": "Place", "name": "Mira Road" }
+        { "@type": "Place", "name": "Borivali" },
+        { "@type": "Place", "name": "Dahisar" },
+        { "@type": "Place", "name": "Mira Road" }
     ],
     "offers": {
-     "@type": "Offer",
-     "price": "0",
-     "priceCurrency": "INR"
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "INR"
     },
     "publisher": {
-     "@type": "Organization",
-     "name": "Barrtar",
-     "url": "https://barrtar.com/"
+        "@type": "Organization",
+        "@id": "https://barrtar.com/#organization",
+        "name": "Barrtar",
+        "url": "https://barrtar.com/",
+        "sameAs": [
+        "https://www.instagram.com/barrtarapp/"
+        ]
     }
-   }
-  </script>
+    }
+    </script>
  </head>
  <body>
   <header class="site-header">
@@ -271,11 +278,12 @@
      <div class="footer-col">
       <h4>Product</h4>
       <ul>
-       <li><a href="/download/">Download</a></li>
-       <li><a href="/how-it-works/">How it works</a></li>
-       <li><a href="/#features">Task use cases</a></li>
-       <li><a href="/faq/">FAQ</a></li>
-      </ul>
+        <li><a href="/download/">Download</a></li>
+        <li><a href="https://play.google.com/store/apps/details?id=com.barrtar.app">Barrtar on Google Play</a></li>
+        <li><a href="/how-it-works/">How it works</a></li>
+        <li><a href="/#features">Task use cases</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+    </ul>
      </div>
      <div class="footer-col">
       <h4>Trust</h4>
